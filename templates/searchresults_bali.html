@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+<title>Overnight.asia | Search Results</title>
+
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta name="keywords" content="Template, html, premium, themeforest" />
+<meta name="description"
+	content="Traveler - Premium template for travel companies">
+<meta name="author" content="Sambhav" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE FONTS -->
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+	rel='stylesheet' type='text/css'>
+<!-- /GOOGLE FONTS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+<script src="{% static 'js/modernizr.js' %}"></script>
+
+
+<style>
+* {
+	box-sizing: border-box;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- FACEBOOK WIDGET -->
+	<div id="fb-root"></div>
+	<script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+	<!-- /FACEBOOK WIDGET -->
+	<div class="global-wrap">
+		<header id="main-header">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<a class="logo" href="landingpage.html"> <img
+								class="origin square" src="{% static 'img/overnightlogo1.png'%}"
+								style="width: 40px;" alt="Image Alternative text"
+								title="Image Title" />
+							</a>
+						</div>
+						<div class="col-md-3 col-md-offset-2"></div>
+						<div class="col-md-4">
+							<div class="top-user-area clearfix">
+								<ul class="top-user-area-list list list-horizontal list-border">
+
+									<li class="top-user-area-avatar"><a
+										href="/showUserProfile/" onclick="submit"> <img class="origin round"
+											src= "{% static 'img/40x40.png'%}" alt="Image Alternative text"
+											title="AMaze" />Hi,{{request.user.first_name}} 
+									</a></li>
+									<li><a href="/logoutUser/">Logout</a></li>
+									<!--<li><a href="#">Sign In</a></li>
+									</li>
+									<li><a href="#">Sign Up</a></li>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+
+
+
+		<div class="booking-title" id="search-dialog">
+
+			<form action="/showResult/" method="GET">
+		
+				<div class="form-group form-group-lg form-group-icon-left">
+					<center>
+
+
+						<div class="gap"></div>
+						<div class="gap"></div>
+						<div class="gap"></div>
+
+						<label>Hey! What's on your thoughts?</label> <input
+							class="form-control" placeholder="" type="text"
+						onFocus="this.value=''" style="width: 50%; padding-left: 4px;" name="searchbar"/>
+					</center>
+				</div>
+				<center>
+					<button class="btn btn-primary btn-lg" type="submit">Search</button>
+				</center>
+			</form>
+			
+	
+
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+		</div>
+
+
+	</div>
+
+
+
+	<div class="container">
+
+		<form >
+			<div class="input-daterange" data-date-format="yyyy-mm-dd">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group form-group-icon-left">
+							<h4 id="results">We found the following results </h4>
+
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+								in</label> <input class="form-control" name="start" type="text" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+								out</label> <input class="form-control" name="end" type="text" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+{% for eachHotel in data%}
+<form action="/showBooking/?roomtype={{request.session.sess_roomtype}}&hotelName={{eachHotel.HotelName}}">
+		<div class="row">
+			<div class="col-md-12 " style="margin: 0 auto;">
+				<ul class="booking-list">
+
+
+{{eachHotel.HotelServices}}
+					<!--Number 1-->
+					<li>
+				
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">{{eachHotel.HotelName}}</h3>
+
+							</div>
+
+
+						</div>
+						<!-- end of col md 12-->
+						<div class="col-md-6" style="margin: 0 auto;">
+					
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24-hour front desk</a></li>
+										<li><a href="#">Express check-in/check-out</a></li>
+										<li><a href="#">Tour desk</a></li>
+										<li><a href="#">Concierge service</a></li>
+										<li><a href="#">Laundry</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Free WiFi</a></li>
+										<li><a href="#">Fitness Centre</a></li>
+										<li><a href="#">Library</a></li>
+										<li><a href="#">Luggage storage</a></li>
+									</ul></li>
+
+					
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="/showBooking/?roomtype=Petita">Petita</a></li>
+										<li><a href="/showBooking/?roomtype=Comforta">Comforta</a></li>
+
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> {{eachHotel.HotelAddress}}<br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">{{eachHotel.PriceByDate}}</span>
+									<input type="hidden" name="hotelName" value="{{eachHotel.HotelName}}"/>
+									<!--form action="#"--><button class="btn btn-primary">Book Now</button>
+									
+									
+				</form>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="/media/{{eachHotel.HotelPictures}}" alt="Image Alternative text"
+											title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>{% endfor %}
+
+					
+				</ul>
+
+
+
+			</div>
+			<!--end of col md 12-->
+		</div>
+		</div>
+		<div class="gap"></div>
+	</div>
+
+
+
+	<footer id="main-footer">
+		<div class="container">
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">About US</a></li>
+
+				</ul>
+			</div>
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">Partners</a></li>
+
+				</ul>
+			</div>
+
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">Support</a></li>
+
+				</ul>
+			</div>
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">FAQ</a></li>
+
+				</ul>
+			</div>
+
+
+
+
+			<div class="col-md-3">
+
+				<ul class="list list-horizontal list-space">
+					<li><a
+						class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+				</ul>
+			</div>
+
+
+
+		</div>
+
+	</footer>
+	<script  src="{% static 'js/jquery.js' %}" ></script>
+	<script src= "{% static 'js/bootstrap.js' %}"></script>
+	<script src= "{% static 'js/slimmenu.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+	<script src= "{% static 'js/nicescroll.js' %}"></script>
+	<script src= "{% static 'js/dropit.js' %}"></script>
+	<script src= "{% static 'js/ionrangeslider.js' %}"></script>
+	<script src= "{% static 'js/icheck.js' %}"></script>
+	<script src= "{% static 'js/fotorama.js' %}"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+	<script src= "{% static 'js/typeahead.js' %}"></script>
+	<script src= "{% static 'js/card-payment.js' %}"></script>
+	<script src= "{% static 'js/magnific.js' %}"></script>
+	<script src= "{% static 'js/owl-carousel.js' %}"></script>
+	<script src= "{% static 'js/fitvids.js' %}"></script>
+	<script src= "{% static 'js/tweet.js' %}"></script>
+	<script src= "{% static 'js/countdown.js' %}"></script>
+	<script src="{% static 'js/gridrotator.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+<script>
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
+</html>
+
+

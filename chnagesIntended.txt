@@ -1,0 +1,12 @@
+package is for rooms in a drop down
+package is an entity on its own
+package foreign Keys RoomInfo
+airport transfer
+
+create Package Link
+Package identity
+package description
+Pack price
+roomType=>package
+List of services- no json
+

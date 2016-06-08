@@ -1,0 +1,164 @@
+<!doctype html>
+{% load staticfiles %}
+<html class="no-js" lang="">
+    <head>
+        <title>Overnight.asia | Booking Confirmation</title>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="{% static 'css/normalize.css'%}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.css'%}">
+        <link rel="stylesheet" href="{% static 'css/icomoon.css'%}">
+        <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css'%}">
+        <link rel="stylesheet" href="{% static 'css/main.css'%}">
+        <script src="{% static 'js/vendor/modernizr-2.8.3.min.js'%}"></script>
+
+
+
+        <!-- jquery for form -->
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="{% static 'js/jquery.timepicker.js'%}"></script>
+
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+<div class="container-fluid">
+  <!-- header -->
+  <div class="row header-nav">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><img style="margin: 10px 10px;" src="{% static 'img/overnightlogo1.png'%}" width=40px></div>
+    <div class="col-md-6"></div>
+    <div class="col-md-3"><br><a class="signingbuttons">Hi John</a> | <a class="signingbuttons">Logout</a></div>
+  </div>
+  <div class="row colorbar"></div><br>
+  <!-- overnight logo and traveler name -->
+  <!--<div class="row">
+    <div class="col-md-1 col-xs-6"><br><img src="img/overnightlogo.png" width=80px><br></div>
+    <div class="col-md-7"></div>
+    <div class="col-md-3 col-xs-6"><h4 style="text-align: right; margin-top: 25px;">Traveler <span style="color: #ff5a00">Zeanne</span></h4></div>
+  </div>
+-->
+  <!-- Reference Row-->
+  <div class="row"><br>
+    <div class="col-md-1"></div>
+
+    <div class="col-md-7">
+      <h3>Booking Reference</h3>
+      <hr WIDTH=100%>
+      <h4>Booking ID: 20151034930</h4>
+      <div class="whitebox"><br>
+        <h4 class="orangeinbox">Vasanti Seminyak Resort</h4>
+        <h4 class="blackinbox"> Jl. Petitenget No.99, Seminyak, Kuta Utara, Kabupaten Badung,<br>Bali, Indonesia.</h4>
+        <h4 class="orangeinbox">Room Type</h4>
+        <h4 class="blackinbox">Deluxe</h4><br>
+        <h4 class="orangeinbox">Date Selected</h4>
+        <h4 class="blackinbox">Check In Date: April 24, Sun<h4><br>
+         <h4 class="blackinbox"> Check Out Date: May 1, Sun<h4><br>
+            <!--<div class="datebox" style="margin-left: 20px;"></div>-->
+
+        <h4 class="orangeinbox">Attractions Selected</h4>
+        <h4 class="blackinbox">Elephant Ride</h4><br>
+        <div class="row">
+          <div class="col-md-2 col-xs-6">
+            <h4 class="orangeinbox">Chaffeur
+            <input type="checkbox" name="Elephant Ride" value="Elephant Ride" checked></h4></div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2 col-xs-12"><h4 class="orangeinbox">Pick-up Time</h4></div>
+            <div class="col-md-4 col-xs-12"><div class="datebox" style="margin-left: 20px;"><h4 class="blackinbox"> 12.00 PM</h4></div>
+        </div></div><br>
+        <h4 class="orangeinbox">Estimated Check-in Time</h4>
+             <div class="datebox" style="margin-left: 20px;"><h4 class="blackinbox"> 12.30 PM</h4></div>
+        <br><br>
+
+      </div><br>
+      <div class="row">
+        <div class="col-md-6 col-xs-8"><h4><input type="checkbox" checked>&nbsp;&nbsp;&nbsp;Do you want an invoice? &nbsp;</h4><br></div>
+        
+      </div>
+
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-3" style="text-align: center;">
+        <form action="/showResult/">
+
+          <button class="btn" id="donebutton" onclick="submit">Done</button>
+      </form>
+      <br><br><br><br><br>
+    </div>
+  </div>
+  <!-- footer -->
+  <div class="row header-nav"><br><br>
+    <div class="col-md-2"><center>About Us</center></div>
+    <div class="col-md-2"><center>Partners</center></div>
+    <div class="col-md-2"><center>Support</center></div>
+    <div class="col-md-2"><center>FAQ</center></div>
+    <div class="col-md-4">
+            <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top whitecol" href="#"></a>
+            <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top whitecol" href="#"></a>
+            <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top whitecol" href="#"></a>
+            <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top whitecol" href="#"></a>
+            <a class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top whitecol" href="#"></a>
+    </div><br><br><br>
+  </div>
+
+</div>
+
+      <!--  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script> -->
+        <script src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script src="{% static 'js/main.js'%}"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    <script  src="{% static 'js/jquery.js' %}" ></script>
+	<script src= "{% static 'js/bootstrap.js' %}"></script>
+	<script src= "{% static 'js/slimmenu.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+	<script src= "{% static 'js/nicescroll.js' %}"></script>
+	<script src= "{% static 'js/dropit.js' %}"></script>
+	<script src= "{% static 'js/ionrangeslider.js' %}"></script>
+	<script src= "{% static 'js/icheck.js' %}"></script>
+	<script src= "{% static 'js/fotorama.js' %}"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+	<script src= "{% static 'js/typeahead.js' %}"></script>
+	<script src= "{% static 'js/card-payment.js' %}"></script>
+	<script src= "{% static 'js/magnific.js' %}"></script>
+	<script src= "{% static 'js/owl-carousel.js' %}"></script>
+	<script src= "{% static 'js/fitvids.js' %}"></script>
+	<script src= "{% static 'js/tweet.js' %}"></script>
+	<script src= "{% static 'js/countdown.js' %}"></script>
+	<script src="{% static 'js/gridrotator.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+    </body>
+</html>

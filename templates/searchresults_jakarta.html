@@ -1,0 +1,827 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+
+<head>
+<title>Overnight.asia | Search Results</title>
+
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta name="keywords" content="Template, html, premium, themeforest" />
+<meta name="description"
+	content="Traveler - Premium template for travel companies">
+<meta name="author" content="Tsoy">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE FONTS -->
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+	rel='stylesheet' type='text/css'>
+<!-- /GOOGLE FONTS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+<script src="{% static 'js/modernizr.js' %}"></script>
+
+
+<style>
+* {
+	box-sizing: border-box;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- FACEBOOK WIDGET -->
+	<div id="fb-root"></div>
+	<script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+	<!-- /FACEBOOK WIDGET -->
+	<div class="global-wrap">
+		<header id="main-header">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<a class="logo"> <img
+								class="origin square" src="{% static 'img/overnightlogo1.png'%}"
+								style="width: 40px;" alt="Image Alternative text"
+								title="Image Title" />
+							</a>
+						</div>
+						<div class="col-md-3 col-md-offset-2"></div>
+						<div class="col-md-4">
+							<div class="top-user-area clearfix">
+								<ul class="top-user-area-list list list-horizontal list-border">
+
+									<li class="top-user-area-avatar"><a
+										href="/showUserProfile/" onclick="submit"> <img class="origin round"
+											src= "{% static 'img/40x40.png'%}" alt="Image Alternative text"
+											title="AMaze" />Hi, John
+									</a></li>
+
+									<!--<li><a href="#">Sign In</a></li>
+									</li>-->
+									<li><a href="#" > Logout</a></li>
+									<!--<li><a href="#">Sign Up</a></li>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+
+
+
+		<div class="booking-title" id="search-dialog">
+
+			<form action="/showSearchresultJakarta/">
+				<div class="form-group form-group-lg form-group-icon-left">
+					<center>
+
+
+						<div class="gap"></div>
+						<div class="gap"></div>
+						<div class="gap"></div>
+
+						<label>Hey! What's on your thoughts?</label> <input
+							class="form-control" placeholder="" type="text"
+							onFocus="this.value=''" style="width: 50%; padding-left: 4px;" />
+					</center>
+				</div>
+				<center>
+					<button class="btn btn-primary btn-lg" type="submit">Search</button>
+				</center>
+			</form>
+
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+		</div>
+
+
+	</div>
+
+
+
+	<div class="container">
+
+		<form>
+			<div class="input-daterange" data-date-format="MM d, D">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group form-group-icon-left">
+							<h4 id="results">We Found 7 Hotels near the Grand Indonesia
+								Mall</h4>
+
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+								in</label> <input class="form-control" name="start" type="text" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+								out</label> <input class="form-control" name="end" type="text" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<div class="row">
+			<div class="col-md-12 " style="margin: 0 auto;">
+				<ul class="booking-list">
+
+
+
+					<!--Number 1-->
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">Kosenda Hotel</h3>
+
+							</div>
+
+
+						</div>
+						<!-- end of col md 12-->
+						<div class="col-md-6" style="margin: 0 auto;">
+
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24-hour front desk</a></li>
+										<li><a href="#">Express check-in/check-out</a></li>
+										<li><a href="#">Tour desk</a></li>
+										<li><a href="#">Concierge service</a></li>
+										<li><a href="#">Laundry</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Free WiFi</a></li>
+										<li><a href="#">Fitness Centre</a></li>
+										<li><a href="#">Library</a></li>
+										<li><a href="#">Luggage storage</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Petita</a></li>
+										<li><a href="#">Comforta</a></li>
+
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. Wahid Hasyim no. 127, Tanah
+								Abang,Jakarta, 10240.<br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/kosenda-1.jpg'%}" alt="Image Alternative text"
+											title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+
+					<!--Number 2-->
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">ARTOTEL Thamrin</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24 Hour Room Service</a></li>
+										<li><a href="#">Child Care</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Express check-in/check-out</a></li>
+										<li><a href="#">Valet parking</a></li>
+
+
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+
+										<li><a href="#">Luggage storage</a></li>
+										<li><a href="#">Meeting facilities</a></li>
+										<li><a href="#">Safety deposit boxes</a></li>
+										<li><a href="#">Smoking area</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Studio 20</a></li>
+										<li><a href="#">Studio 25</a></li>
+										<li><a href="#">Studio 40</a></li>
+
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. Sunda No.3, Menteng, Kota
+								Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10350.<br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/artotel.jpg'%}" alt="Image Alternative text"
+											title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+
+					<!--Number 3-->
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">The Akmani Hotel</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24 Hour Room Service</a></li>
+										<li><a href="#">Child Care</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Dry Cleaning & Laundry</a></li>
+										<li><a href="#">Doctor on Call</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+
+										<li><a href="#">Business Center</a></li>
+										<li><a href="#">Spa</a></li>
+										<li><a href="#">Gym</a></li>
+										<li><a href="#">Safety Deposit Box</a></li>
+										<li><a href="#">Meeting/banquet facilities</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Deluxe</a></li>
+										<li><a href="#">Grand Deluxe</a></li>
+										<li><a href="#">Suite</a></li>
+										<li><a href="#">Grand Suite</a></li>
+										<li><a href="#">Presedential Suite</a></li>
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. KH. Wahid Hasyim No. 91,
+								Gondangdia, Menteng, Daerah Khusus Ibukota Jakarta 10350.<br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item" href="#">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/akmani.jpg'%}" alt="Image Alternative text"
+											title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+
+
+
+
+					<!--4-->
+
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">Oria Hotel</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24-hour front desk</a></li>
+										<li><a href="#">Room service</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Laundry</a></li>
+										<li><a href="#">Valet parking</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+
+										<li><a href="#">Facilities for disabled guests</a></li>
+										<li><a href="#">Meeting facilities</a></li>
+										<li><a href="#">Smoking area</a></li>
+										<li><a href="#">Safety Deposit Box</a></li>
+										<li><a href="#">Luggage storage</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Superior</a></li>
+										<li><a href="#">Deluxe</a></li>
+										<li><a href="#">Junior Suite</a></li>
+										<li><a href="#">Executive Suite</a></li>
+										<li><a href="#">Deluxe Suite</a></li>
+										<li><a href="#">Oria Suite</a></li>
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. KH Wahid Hasyim No. 85,
+								Daerah Khusus Ibukota Jakarta 10350. <br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item" href="#">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/oria.jpg'%}" alt="Image Alternative text" title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+                    <!--5-->
+
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">The Belezza Suites</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24-hour front desk</a></li>
+										<li><a href="#">Room service</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Laundry</a></li>
+										<li><a href="#">Valet parking</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+
+										<li><a href="#">Facilities for disabled guests</a></li>
+										<li><a href="#">Meeting facilities</a></li>
+										<li><a href="#">Smoking area</a></li>
+										<li><a href="#">Safety Deposit Box</a></li>
+										<li><a href="#">Luggage storage</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Superior</a></li>
+										<li><a href="#">Deluxe</a></li>
+										<li><a href="#">Junior Suite</a></li>
+										<li><a href="#">Executive Suite</a></li>
+										<li><a href="#">Deluxe Suite</a></li>
+										<li><a href="#">Oria Suite</a></li>
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. Soepeno No. 34, Arteri Permata Hijau, Daerah Khusus Ibukota Jakarta. <br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item" href="#">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/bellezza.jpg' %}" alt="Image Alternative text" title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+                    <!--6-->
+
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">The Morissey Hotel</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">24-hour front desk</a></li>
+										<li><a href="#">Room service</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Laundry</a></li>
+										<li><a href="#">Valet parking</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+
+										<li><a href="#">Facilities for disabled guests</a></li>
+										<li><a href="#">Meeting facilities</a></li>
+										<li><a href="#">Smoking area</a></li>
+										<li><a href="#">Safety Deposit Box</a></li>
+										<li><a href="#">Luggage storage</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Superior</a></li>
+										<li><a href="#">Deluxe</a></li>
+										<li><a href="#">Junior Suite</a></li>
+										<li><a href="#">Executive Suite</a></li>
+										<li><a href="#">Deluxe Suite</a></li>
+										<li><a href="#">Oria Suite</a></li>
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. KH No.70, RT.7/RW.5, Kb. Sirih, Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta. <br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item" href="#">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/morrissey.jpg'%}" alt="Image Alternative text" title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+					<!--7-->
+
+					<li>
+
+						<div class="col-md-12">
+							<div class="header">
+								<br>
+								<h3 class="booking-item-title">Keraton at The Plaza</h3>
+							</div>
+
+
+						</div>
+						<!-- end of col md 8-->
+						<div class="col-md-6" style="margin: 0 auto;">
+							<ul class="slimmenu" id="slimmenu">
+								<li class="active"><a href="#">Services</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">Laundry & dry cleaning</a></li>
+										<li><a href="#">Concierge</a></li>
+										<li><a href="#">24-hour room service</a></li>
+										<li><a href="#">Massage</a></li>
+										<li><a href="#">Wi-Fi</a></li>
+
+									</ul></li>
+
+								<li class="active"><a href="#">Facilities</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">EXECUTIVE LOUNGE</a></li>
+										<li><a href="#">BUSINESS CENTER</a></li>
+										<li><a href="#">MEETINGS</a></li>
+										<li><a href="#">SWIMMING POOL</a></li>
+										<li><a href="#">FITNESS CENTER</a></li>
+										<li><a href="#">steamroom</a></li>
+										<li><a href="#">sauna</a></li>
+										<li><a href="#">spa</a></li>
+										<li><a href="#">valet parking</a></li>
+									</ul></li>
+
+								<li class="active"><a href="#">Rooms Available</a>
+									<ul style="max-height: 300px; overflow: auto;">
+										<li><a href="#">Grand Deluxe</a></li>
+										<li><a href="#">Executive Room</a></li>
+										<li><a href="#">Keraton Suite</a></li>
+									</ul></li>
+							</ul>
+							<br>
+							<p class="booking-item-address">
+								<i class="fa fa-map-marker"></i> Jl. M.H. Thamrin No.15, Special
+								Capital Region of Jakarta 10350. <br>
+								<br> <a href="#">Show Map</a>
+							</p>
+
+						</div> <a class="booking-item" href="#">
+							<div class="row">
+
+								<div class="col-md-2">
+									<h5>From</h5>
+									<span class="booking-item-price">$389</span><span
+										class="btn btn-primary">Book Now</span>
+								</div>
+
+								<div class="col-md-4">
+
+
+									<div class="booking-item-img-wrap">
+										<img src="{% static 'img/keraton.jpg'%}" alt="Image Alternative text"
+											title="" />
+										<div class="booking-item-img-num">
+											<i class="fa fa-picture-o"></i>8
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+							<!--end of div row-->
+
+					</a>
+
+					</li>
+				</ul>
+
+
+
+			</div>
+			<!--end of col md 12-->
+		</div>
+		<div class="gap"></div>
+	</div>
+
+
+
+	<footer id="main-footer">
+		<div class="container">
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">About US</a></li>
+
+				</ul>
+			</div>
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">Partners</a></li>
+
+				</ul>
+			</div>
+
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">Support</a></li>
+
+				</ul>
+			</div>
+
+			<div class="col-md-2">
+				<ul class="list list-footer">
+					<li><a href="#">FAQ</a></li>
+
+				</ul>
+			</div>
+
+
+
+
+			<div class="col-md-3">
+
+				<ul class="list list-horizontal list-space">
+					<li><a
+						class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+					<li><a
+						class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
+						href="#"></a></li>
+				</ul>
+			</div>
+
+
+
+		</div>
+
+	</footer>
+	<script  src="{% static 'js/jquery.js' %}" ></script>
+	<script src= "{% static 'js/bootstrap.js' %}"></script>
+	<script src= "{% static 'js/slimmenu.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+	<script src= "{% static 'js/nicescroll.js' %}"></script>
+	<script src= "{% static 'js/dropit.js' %}"></script>
+	<script src= "{% static 'js/ionrangeslider.js' %}"></script>
+	<script src= "{% static 'js/icheck.js' %}"></script>
+	<script src= "{% static 'js/fotorama.js' %}"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+	<script src= "{% static 'js/typeahead.js' %}"></script>
+	<script src= "{% static 'js/card-payment.js' %}"></script>
+	<script src= "{% static 'js/magnific.js' %}"></script>
+	<script src= "{% static 'js/owl-carousel.js' %}"></script>
+	<script src= "{% static 'js/fitvids.js' %}"></script>
+	<script src= "{% static 'js/tweet.js' %}"></script>
+	<script src= "{% static 'js/countdown.js' %}"></script>
+	<script src="{% static 'js/gridrotator.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+<script>
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
+</html>
+
+

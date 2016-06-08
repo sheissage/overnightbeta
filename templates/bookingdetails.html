@@ -1,0 +1,332 @@
+    <!DOCTYPE HTML>
+    {% load staticfiles %}
+    <html>
+
+    <head>
+    <title>Overnight.asia | Booking Detailsls</title>
+
+
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="keywords" content="Travel, Overnight, Hotels, Book Hotel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS -->
+    <link
+        href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+        rel='stylesheet' type='text/css'>
+    <link
+        href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+        rel='stylesheet' type='text/css'>
+    <!-- /GOOGLE FONTS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+    <script src="{% static 'js/modernizr.js' %}"></script>
+
+
+    </head>
+
+    <body>
+
+        <!-- FACEBOOK WIDGET -->
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <!-- /FACEBOOK WIDGET -->
+        <div class="global-wrap">
+            <header id="main-header">
+                <div class="header-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a class="logo"  href="#"> <img
+                                    class="origin square" src="{% static 'img/overnightlogo1.png'%}"
+                                    style="width: 40px;" alt="Image Alternative text"
+                                    title="Image Title" />
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-md-offset-2"></div>
+                            <div class="col-md-4">
+                                <div class="top-user-area clearfix">
+                                    <ul class="top-user-area-list list list-horizontal list-border">
+
+                                        <li class="top-user-area-avatar"><a
+                                             href="/showUserProfile/" onclick="submit"> <img class="origin round"
+                                                src="{% static 'img/40x40.png'%}" alt="Image Alternative text"
+                                                title="AMaze" />Hi, {{request.user.first_name}}
+                                        </a></li>
+                                        <li><a href="#">Logout</a></li>
+                                        <!--<li><a href="#">Sign In</a></li>
+
+                                        <li><a href="#">Sign Up</a></li>-->
+
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </header>
+
+            <div class="container">
+                <br>
+
+                <h5>Your Selection
+                 <h5 style="float: right ;color: #ed8323; "> Edit Selection</h5>
+
+                </h5>
+
+            </div>
+
+
+
+            <div class="container">
+{% for eachHotel in hoteldata %} 
+                
+
+                    <div class="col-md-4" style="float: right; background-color: #ed8323; border-radius:8px;">
+
+                        <aside class="user-profile-sidebar" style="background-color: #ed8323">
+                            <div class="text-center"> 
+
+                                <p>Booking Summary</p><br>
+                                <p align="justify">Hotel .................................................:$ {{eachHotel.PriceByDate}} (USD)</p>
+                                <p align="justify">Attractions .......................................:$00(USD)</p>
+                                <p align="justify">Service Taxes....................................:$30(USD)</p><br>
+                                <p align="justify">Total...................................................:$250(USD)</p><br>
+                            </div>
+
+                        </aside>
+                    </div>
+                    
+                 <div class="row">
+                 <form action="/callPriceRefresh/">
+                <div class="input-daterange" data-date-format="MM d, D">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <h3>Hotel Details</h3> <br>
+                            <h3> <font color="#ff5a00;">{{eachHotel.HotelName}}</font></h3>
+                            <i class="fa fa-map-marker"></i> Jl. Petitenget No.99, Seminyak, Kuta Utara, Kabupaten Badung, Bali, Indonesia.<br>
+                            Room Type:<select class="form-control" style="width : 50%" name="roomType">
+										{% for eachRoom in roomdata%}<option name="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>{% endfor %}                            
+                            </select>
+                            <button class="btn btn-primary btn-lg" type="submit"> Check Prices</button>
+                            <br>
+                           <hr/> 
+                        </div>
+
+                        <div class="col-md-12"><h5>Select Dates</h5></div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group form-group-icon-left">
+                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+                                    in</label> <input class="form-control" value="April 24, Sun"name="start" type="text" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-icon-left">
+                                <i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>Check
+                                    out</label> <input class="form-control" value="May 1, Sun"name="end" type="text" />
+                            </div>
+                        </div>
+{% endfor%}
+                
+                         <!-- Attractions Row-->
+
+
+          
+
+        </div>
+                    </div>
+                     <hr/>
+            <!--Booking Details Row-->
+  
+  
+    <div class="col-md-7"><br><br>
+        
+      <h4>Hotel Transfer</h4>
+      <h5 style="color: #ff5a00">Please state if you require a chaffeur-driven car to your hotel.<br>
+        This is a complimentary service.</h5>
+        <div class="form-group form-group-icon-left" style="width:70%">
+
+<input value="Yes"class="form-control" id="hoteltransfer" type="text" />
+</div>
+      <hr/>  
+      <h4>Select Transfer Location</h4>
+      <h5 style="color: #ff5a00">Current transfer locations are airports and railway stations only.</h5>
+         <div class="form-group form-group-icon-left" style="width:70%">
+             <input class="form-control" type="text" value="Ngurah Rai International Airport" id="transferlocation">
+        </div>
+
+     
+        
+          <h4>Estimated Time of Arrival</h4>
+            <div class="form-group form-group-icon-left" style="width:70%">
+          <input value="11.00 AM" class="form-control" type="text" id="eta">
+            </div>
+       
+          <h4>Estimated Check-in Time</h4>
+          <div class="form-group form-group-icon-left" style="width:70%">
+          <input class="form-control"  value="12.30 PM"type="text" id="estcheckin">
+        </div>
+        </div><br><br>
+
+                  
+                     
+                     
+                     
+
+            </form>	
+
+                </div>
+
+<hr/> 
+                
+       
+                
+  <!-- Payment Row-->
+  <h3>Payment Method</h3>
+      <br>
+    <div class="col-md-4">
+      
+        <h4>Pay With Stripe</h4>
+        
+        <!--Stripe-->
+           <form action="" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+    data-amount="999"
+    data-name="Stripe.com"
+    data-description="Widget"
+    data-image="/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+</form>
+     </div>    
+        
+
+    <div class="col-md-11   " style="text-align: right;">
+
+      <form action="/showBookingConfirmation/">
+
+          <button class="btn" style="background-color:#ed8323; color:white;" onclick="submit">Done</button>
+      </form>
+
+
+
+    </div>
+  </div>
+
+
+
+                    </div>
+
+
+
+
+            <div class="gap"></div>
+
+            <footer id="main-footer">
+                <div class="container">
+
+                    <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">About US</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">Partners</a></li>
+
+                        </ul>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">Support</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <ul class="list list-footer">
+                            <li><a href="#">FAQ</a></li>
+
+                        </ul>
+                    </div>
+
+
+
+
+                    <div class="col-md-3">
+
+                        <ul class="list list-horizontal list-space">
+                            <li><a
+                                class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
+                                href="#"></a></li>
+                            <li><a
+                                class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
+                                href="#"></a></li>
+                            <li><a
+                                class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
+                                href="#"></a></li>
+                            <li><a
+                                class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
+                                href="#"></a></li>
+                            <li><a
+                                class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
+                                href="#"></a></li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+        
+        </footer>
+
+    <script  src="{% static 'js/jquery.js' %}" ></script>
+        <script src= "{% static 'js/bootstrap.js' %}"></script>
+        <script src= "{% static 'js/slimmenu.js' %}"></script>
+        <script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+        <script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+        <script src= "{% static 'js/nicescroll.js' %}"></script>
+        <script src= "{% static 'js/dropit.js' %}"></script>
+        <script src= "{% static 'js/ionrangeslider.js' %}"></script>
+        <script src= "{% static 'js/icheck.js' %}"></script>
+        <script src= "{% static 'js/fotorama.js' %}"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+        <script src= "{% static 'js/typeahead.js' %}"></script>
+        <script src= "{% static 'js/card-payment.js' %}"></script>
+        <script src= "{% static 'js/magnific.js' %}"></script>
+        <script src= "{% static 'js/owl-carousel.js' %}"></script>
+        <script src= "{% static 'js/fitvids.js' %}"></script>
+        <script src= "{% static 'js/tweet.js' %}"></script>
+        <script src= "{% static 'js/countdown.js' %}"></script>
+        <script src="{% static 'js/gridrotator.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+        
+    </body>
+
+    </html>
+
+

@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+
+<head>
+<title>Overnight.asia | Your Past Booking History</title>
+
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta name="keywords" content="Travel, Overnight, Hotels, Book Hotel" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE FONTS -->
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+	rel='stylesheet' type='text/css'>
+<!-- /GOOGLE FONTS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+<script src="{% static 'js/modernizr.js' %}"></script>
+
+</head>
+
+<body>
+
+	<!-- FACEBOOK WIDGET -->
+	<div id="fb-root"></div>
+	<script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+	<!-- /FACEBOOK WIDGET -->
+	<div class="global-wrap">
+		<header id="main-header">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<a class="logo" href="landingpage.html"> <img
+								class="origin square" src="{% static 'img/overnightlogo1.png'%}"
+								style="width: 40px;" alt="Image Alternative text"
+								title="Image Title" />
+							</a>
+						</div>
+						<div class="col-md-3 col-md-offset-2"></div>
+						<div class="col-md-4">
+							<div class="top-user-area clearfix">
+								<ul class="top-user-area-list list list-horizontal list-border">
+
+									<li class="top-user-area-avatar"><a
+										href="user-profile.html"> <img class="origin round"
+											src="{% static 'img/40x40.png'%}" alt="Image Alternative text"
+											title="AMaze" />Hi, John
+									</a></li>
+									<li><a href="#">Logout</a></li>
+									<!--<li><a href="#">Sign In</a></li>
+									</li>
+									<li><a href="#">Sign Up</a></li>-->
+
+
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+		<div class="container">
+			<h1 class="page-title">Booking History</h1>
+		</div>
+
+
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<aside class="user-profile-sidebar">
+						<div class="user-profile-avatar text-center">
+							<img src="{% static 'img/300x300.png'%}" alt="Image Alternative text"
+								title="AMaze" />
+							<h5>John Doe</h5>
+
+						</div>
+						<ul class="list user-profile-nav">
+							<li><a href="/showUserProfile/" onclick="submit"><i class="fa fa-user"></i>Overview</a>
+							</li>
+							<li><a href="/showUserProfileSettings/" onclick="submit"><i
+									class="fa fa-cog"></i>Settings</a></li>
+
+							<li><a href="/showUserProfileBookingHistory/" onclick="submit"><i
+									class="fa fa-clock-o"></i>Booking History</a></li>
+							<li><a href="/showUserProfileCards/" onclick="submit"><i
+									class="fa fa-credit-card"></i>Credit/Debit Cards</a></li>
+
+						</ul>
+					</aside>
+				</div>
+				<div class="col-md-9">
+					<div class="checkbox">
+						<label> <input class="i-check" type="checkbox" />Show
+							only current trip
+						</label>
+					</div>
+					<table
+						class="table table-bordered table-striped table-booking-history">
+						<thead>
+							<tr>
+
+								<th>Hotel</th>
+								<th>Location</th>
+								<th>Booking Date</th>
+								<th>Travel Date</th>
+								<th>Cancel</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>4/25/2014</td>
+								<td class="text-center"><a class="btn btn-default btn-sm"
+									href="#">Cancel</a></td>
+							</tr>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>4/25/2014</td>
+								<td class="text-center"></td>
+							</tr>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>4/25/2014</td>
+								<td class="text-center"><a class="btn btn-default btn-sm"
+									href="#">Cancel</a></td>
+							</tr>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>2/20/2014 <i class="fa fa-long-arrow-right"></i>
+									2/23/2014
+								</td>
+								<td class="text-center"><a class="btn btn-default btn-sm"
+									href="#">Cancel</a></td>
+							</tr>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>2/20/2014 <i class="fa fa-long-arrow-right"></i>
+									2/23/2014
+								</td>
+								<td class="text-center"><a class="btn btn-default btn-sm"
+									href="#">Cancel</a></td>
+							</tr>
+							<tr>
+								<td class="booking-history-type"><i
+									class="fa fa-building-o"></i><small>Hotel Name</small></td>
+								<td>Location</td>
+								<td>4/12/2014</td>
+								<td>2/20/2014 <i class="fa fa-long-arrow-right"></i>
+									2/23/2014
+								</td>
+								<td class="text-center"><a class="btn btn-default btn-sm"
+									href="#">Cancel</a></td>
+							</tr>
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="gap"></div>
+
+		<footer id="main-footer">
+			<div class="container">
+
+				<div class="col-md-2">
+					<ul class="list list-footer">
+						<li><a href="#">About US</a></li>
+
+					</ul>
+				</div>
+
+				<div class="col-md-2">
+					<ul class="list list-footer">
+						<li><a href="#">Partners</a></li>
+
+					</ul>
+				</div>
+
+
+				<div class="col-md-2">
+					<ul class="list list-footer">
+						<li><a href="#">Support</a></li>
+
+					</ul>
+				</div>
+
+				<div class="col-md-2">
+					<ul class="list list-footer">
+						<li><a href="#">FAQ</a></li>
+
+					</ul>
+				</div>
+
+
+
+
+				<div class="col-md-3">
+
+					<ul class="list list-horizontal list-space">
+						<li><a
+							class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
+							href="#"></a></li>
+						<li><a
+							class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
+							href="#"></a></li>
+						<li><a
+							class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
+							href="#"></a></li>
+						<li><a
+							class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
+							href="#"></a></li>
+						<li><a
+							class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
+							href="#"></a></li>
+					</ul>
+				</div>
+
+
+
+			</div>
+	</div>
+	</footer>
+
+	<script  src="{% static 'js/jquery.js' %}" ></script>
+	<script src= "{% static 'js/bootstrap.js' %}"></script>
+	<script src= "{% static 'js/slimmenu.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+	<script src= "{% static 'js/nicescroll.js' %}"></script>
+	<script src= "{% static 'js/dropit.js' %}"></script>
+	<script src= "{% static 'js/ionrangeslider.js' %}"></script>
+	<script src= "{% static 'js/icheck.js' %}"></script>
+	<script src= "{% static 'js/fotorama.js' %}"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+	<script src= "{% static 'js/typeahead.js' %}"></script>
+	<script src= "{% static 'js/card-payment.js' %}"></script>
+	<script src= "{% static 'js/magnific.js' %}"></script>
+	<script src= "{% static 'js/owl-carousel.js' %}"></script>
+	<script src= "{% static 'js/fitvids.js' %}"></script>
+	<script src= "{% static 'js/tweet.js' %}"></script>
+	<script src= "{% static 'js/countdown.js' %}"></script>
+	<script src="{% static 'js/gridrotator.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	</div>
+</body>
+
+</html>
+
+
