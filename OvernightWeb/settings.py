@@ -86,14 +86,16 @@ WSGI_APPLICATION = 'OvernightWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'OvernightWeb',
-        'USER': 'postgres',
-        'PASSWORD': '150376war',
+        'NAME': 'overnight',
+        'USER': 'overnight',
+        'PASSWORD': 'letmein',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 #db_from_env = dj_database_url.config()
 #DATABASES['default'] =dj_database_url.config()
 # Password validation
@@ -131,6 +133,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+# using whitenoise for static file storage
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
 
