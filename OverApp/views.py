@@ -40,8 +40,6 @@ def loadDash(request):
     print(roomData)
     return render(request, 'hotelDashboard.html', {'roomdata': roomData})
 
-# api call to alchemy to get content
-
 
 def getContent(request):
     print("here")
