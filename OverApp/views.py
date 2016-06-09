@@ -253,7 +253,8 @@ def showSearchresult(request):
     print (posarr)
     print (facilities)
     area = posarr[3]
-
+    data = models.HotelInfo.objects.all()
+    print data
     hoteldata = models.HotelInfo.objects.all().values[3]
     return render(request,'searchresults_common.html',{'data':hoteldata})
 
