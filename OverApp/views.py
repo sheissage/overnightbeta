@@ -255,7 +255,7 @@ def showSearchresult(request):
     area = posarr[3]
     data = models.HotelInfo.objects.all()
     print data
-    hoteldata = models.HotelInfo.objects.all().values[3]
+    hoteldata = [item for item in data if item[3]!= none]
     return render(request,'searchresults_common.html',{'data':hoteldata})
 
 
