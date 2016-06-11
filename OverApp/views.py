@@ -191,7 +191,7 @@ def createMerchant(request):
             if user is None:
                 return HttpResponse("Merchant Cannot be created")
             subject, from_email, to = "Welcome to " + \
-                "Overnight.asia (beta)", 'enquiry@overnight.asia', email
+                "Overnight.asia (beta)", 'welcome@overnight.asia', email
             text_content = 'Thank you for signing up as a partner. ' + \
                 fname+"\n You're one of the #Overnight20 partners."
             html_content = '<p>Thank you for signing up as a partner.</p>'
@@ -271,7 +271,7 @@ def signupUser(request):
                                             country=country, homeAirport=city)
             newTraveller.save()
             subject, from_email, to = 'Welcome to Overnight.asia (beta)',
-            'enquiry@overnight.asia', email
+            'welcome@overnight.asia', email
             text_content = 'Hello! ' + fname + \
                 "\n Thank you for signing up as "\
                 "a beta member of Overnight.asia."
