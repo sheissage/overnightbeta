@@ -163,5 +163,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'welcome@overnight.asia'
-EMAIL_HOST_PASSWORD = 'OopsIdidItAgain2016'
+EMAIL_HOST_PASSWORD = 'gK$wye7p#H'
 #email credentials end
