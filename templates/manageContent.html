@@ -97,7 +97,7 @@
 
 		<div class="booking-title" id="search-dialog">
 
-		
+
 
 			<div class="gap"></div>
 			<div class="gap"></div>
@@ -113,13 +113,13 @@
 
 		<form method="POST" enctype="multipart/form-data" action="/createRoom/">
 		{% csrf_token%}
-			
+
 				<div class="row">
-				
+
 					<div class="col-md-3">
 						<div class="form-group form-group-icon-left">
-							
-								<br><select name="destination" class="form-control" style="width: 75%">	
+
+								<br><select name="destination" class="form-control" style="width: 75%">
 								<option value="Bali">Bali</option>
 								<option value="Bangkok">Bangkok</option>
 								<option value="Jakarta">Jakarta</option>
@@ -128,96 +128,62 @@
 								<option value="Phuket">Phuket</option>
 								<option value="Yangon">Yangon</option>
 								</select><br>
-														
+
 								<br><input class="form-control" name="name" type="text" placeholder ="Property's Name"/>
 								<br><textarea class="form-control" name="address" type="text" rows="4" cols="50" placeholder ="Address"/>
-</textarea>							
+</textarea>
 							<br>	<textarea class="form-control" name="amenities" type="text" rows="4" cols="50" placeholder ="List Amenities, use commas"/>
 </textarea>
 				<br>	<textarea class="form-control" name="services" type="text" rows="4" cols="50" placeholder ="List services, use commas"/>
-</textarea>		
+</textarea>
 
 <br>	<textarea class="form-control" name="roomtype" type="text" rows="4" cols="50" placeholder ="List Roomtypes, use commas"/>
 </textarea>
-					
+
 						</div>
 					</div>
-					
+
 					<div class="col-md-3">
 					</div>
 				</div>
-			
+
 			<button class="btn btn-primary btn-lg" type="submit">Create</button>
 
 
 		</form>
 
-	
+
 		<div class="gap"></div>
 	</div>
 
-
-
-	<footer id="main-footer">
+	<div class="gap"></div>
+	<footer>
 		<div class="container">
+			<div class="row">
+				<div class="col-md-8"></div>
+				<div class="col-md-3" style="padding-bottom: 10px; text-align: right;">
+					<a href="https://www.facebook.com/overnightasia/"><i class="fa fa-facebook" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+					<a href="https://www.instagram.com/overnightasia/"><i class="fa fa-instagram" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+					<a href="https://twitter.com/overnightasia"><i class="fa fa-twitter" aria-hidden="true" style="color: #ff8400; font-size: 19px;"></i> &nbsp;</a>
+					<a href="https://www.linkedin.com/company/overnight-asia"><i class="fa fa-linkedin" aria-hidden="true" style="color: #ff8400; font-size: 20px;"></i> &nbsp;</a>
+					<a href="http://www.overnight.asia/mailto:ahshida@overnight.asia"><i class="fa fa-envelope-o" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
 
-			<div class="col-md-2">
-				<ul class="list list-footer">
-					<li><a href="#">About US</a></li>
+				</div>
 
-				</ul>
 			</div>
-
-			<div class="col-md-2">
-				<ul class="list list-footer">
-					<li><a href="#">Partners</a></li>
-
-				</ul>
-			</div>
-
-
-			<div class="col-md-2">
-				<ul class="list list-footer">
-					<li><a href="#">Support</a></li>
-
-				</ul>
-			</div>
-
-			<div class="col-md-2">
-				<ul class="list list-footer">
-					<li><a href="#">FAQ</a></li>
-
-				</ul>
-			</div>
-
-
-
-
-			<div class="col-md-3">
-
-				<ul class="list list-horizontal list-space">
-					<li><a
-						class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
-						href="#"></a></li>
-					<li><a
-						class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
-						href="#"></a></li>
-					<li><a
-						class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
-						href="#"></a></li>
-					<li><a
-						class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
-						href="#"></a></li>
-					<li><a
-						class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
-						href="#"></a></li>
-				</ul>
-			</div>
-
-
-
 		</div>
-
+		<div class="container">
+			<div class="row" style="font-size: 14px;">
+				<div class="col-md-1"></div>
+				<div class="col-md-3" style="color: #ff8400;">Overnight.asia All Rights Reserved 2016</div>
+				<div class="col-md-3"></div>
+				<div class="col-md-4" style="text-align: right;"><a style="color: #ff8400;" href="http://www.overnight.asia/about.html">About |</a>
+					<a style="color: #ff8400;" href="http://www.overnight.asia/privacy-policy.html">Privacy Policy |</a>
+					 <a style="color: #ff8400;" href="http://www.overnight.asia/terms-of-website.html">Terms of Website </a> </div>
+				<div class="col-md-1"></div>
+			</div><br><br><br>
+		</div>
+	</div>
 	</footer>
 	<script  src="{% static 'js/jquery.js' %}" ></script>
 	<script src= "{% static 'js/bootstrap.js' %}"></script>
@@ -244,7 +210,7 @@
 </body>
 <script>
 $('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
         || location.hostname == this.hostname) {
 
         var target = $(this.hash);
@@ -259,5 +225,3 @@ $('a[href*=#]:not([href=#])').click(function() {
 });
 </script>
 </html>
-
-
