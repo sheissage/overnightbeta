@@ -2,29 +2,51 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django import template
+from django.contrib.auth.models import User
 
 register=template.Library()
 
 # Create your models here.
 
+class Merchant(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    merchantId = models.AutoField(primary_key=True)
+    merchantName = models.CharField(max_length=5120, blank=False, null=False)
+    email = models.CharField(max_length=5120, blank=False, null=False)
+    phone = models.CharField(max_length=5120, blank=True, null=True)
+    streetAddr = models.CharField(max_length=5120, blank=True, null=True)
+    unit = models.CharField(max_length=5120, blank=True, null=True)
+    city = models.CharField(max_length=5120, blank=True, null=True)
+    state = models.CharField(max_length=5120, blank=True, null=True)
+    zip = models.CharField(max_length=5120, blank=True, null=True)
+    country = models.CharField(max_length=5120, blank=True, null=True)
+    user = models.ForeignKey(User, unique=True)
+
+    class Meta:
+        managed=True
+        verbose_name_plural = 'Merchant'
 
 class HotelInfo(models.Model):
-    HotelId = models.TextField(db_column='hotelId', blank=True,primary_key=True)  # Field name made lowercase.
-    Destination = models.TextField(db_column='destination', blank=True, null=True)  # Field name made lowercase.
-    Area = models.TextField(db_column='area', blank=True, null=True)  # Field name made lowercase.
-    HotelName = models.TextField(db_column='hotelName', blank=True, null=True)  # Field name made lowercase.
-    HotelAddress = models.TextField(db_column='address', blank=True, null=True)  # Field name made lowercase. HotelAmenities(JSON)
-    HotelAmens = models.TextField(db_column='hotelAmenities', blank=True, null=True)  # Field name made lowercase.
-    HotelServices = models.TextField(db_column='hotelServices', blank=True, null=True)  # Field name made lowercase.
-    HotelRoomTypes = models.TextField(db_column='hotelRoomTypes', blank=True, null=True)  # Field name made lowercase.(JSON)
-    PriceByDate = models.TextField(db_column='priceByDate', blank=True, null=True)  # Field name made lowercase.(From)
-    HotelPictures = models.ImageField(upload_to="hotelPics/",default="hotelPics/avatar.jpg")  # Field name made lowercase.(HTML)
-    HotelDescription = models.TextField(db_column='hotelDescription',blank=True, null=True) # Field name made lowercase.
-    ownerId = models.TextField(db_column='ownerId',default='Overnightasia')
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    hotelId = models.TextField(blank=False, primary_key=True)  # Field name made lowercase.
+    destination = models.CharField(max_length=5120, blank=True, null=True) # Field name made lowercase.
+    area = models.CharField(max_length=5120, blank=True, null=True) # Field name made lowercase.
+    hotelName = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.
+    hotelAddress = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase. HotelAmenities(JSON)
+    hotelAmens = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.
+    hotelServices = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.
+    hotelRoomTypes = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.(JSON)
+    priceByDate = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.(From)
+    hotelPictures = models.ImageField(upload_to="hotelPics/",default="hotelPics/avatar.jpg")  # Field name made lowercase.(HTML)
+    hotelDescription = models.CharField(max_length=5120, blank=True, null=True)# Field name made lowercase.
+    # ownerId = models.TextField(db_column='ownerId',default='Overnightasia')
+    merchant = models.ForeignKey('OverApp.Merchant')
 
     class Meta:
         managed = True
-        db_table = 'HotelInfo'
+        verbose_name_plural = 'HotelInfo'
 
     @register.filter(name='serviceparse')
     def serviceparse(val):
@@ -32,22 +54,25 @@ class HotelInfo(models.Model):
 
 
 class RoomInfo(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     roomId = models.AutoField(primary_key=True)
-    roomType = models.TextField(db_column="roomType",blank=True)
-    hotelName = models.TextField(db_column='hotelName', blank=True, null=True)  # Field name made lowercase.
-    destination = models.TextField(db_column='destination', blank=True, null=True)  # Field name made lowercase.
+    roomType = models.CharField(max_length=5120, blank=True, null=True)# Field name made lowercase.
+    destination = models.CharField(max_length=5120, blank=True, null=True)  # Field name made lowercase.
     date = models.DateField(null=True,blank=True)
     ratePerNight = models.FloatField(default=0)
     airportTransfer = models.FloatField(default=0)
     discountPercent = models.FloatField(default=0)
     hotelTax = models.FloatField(default=0)
     serviceCharge = models.FloatField(default=0)
-    ownerId = models.TextField(db_column='ownerId',default='Overnightasia')
+    # ownerId = models.TextField(db_column='ownerId',default='Overnightasia')
+    merchant = models.ForeignKey('OverApp.Merchant')
+    hotel = models.ForeignKey('OverApp.HotelInfo')
 
 
     class Meta:
         managed = True
-        db_table = 'RoomInfo'
+        verbose_name_plural = 'RoomInfo'
 
     @register.filter(name='roomparse')
     def roomparse(val):
@@ -55,19 +80,24 @@ class RoomInfo(models.Model):
 
 
 class Package(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     packageId = models.AutoField(primary_key=True)
-    packageName = models.TextField(db_column='packageName')
-    packageDesc = models.TextField(db_column="description")
+    packageName = models.CharField(max_length=5120, blank=True, null=True)
+    packageDesc = models.CharField(max_length=5120, blank=True, null=True)
     price = models.FloatField(db_column="price",default=0)
-    roomType = models.TextField(db_column="roomType", blank=True)
-    serviceList = models.TextField(db_column="serviceList")
+    currency = models.CharField(max_length=5, blank=True, null=True)
+    roomType = models.CharField(max_length=5120, blank=True, null=True)
+    serviceList = models.CharField(max_length=5120, blank=True, null=True)
     discountPercent = models.FloatField(default=0)
     hotelTax = models.FloatField(default=0)
     serviceCharge = models.FloatField(default=0)
+    hotel = models.ForeignKey('OverApp.HotelInfo')
+    merchant = models.ForeignKey('OverApp.Merchant')
 
     class Meta:
         managed = True
-        db_table = 'PackageInfo'
+        verbose_name_plural = 'Package'
 
     @register.filter(name='packageparse')
     def packageparse(val):
@@ -75,38 +105,25 @@ class Package(models.Model):
 
 
 class Traveller(models.Model):
-    location = models.TextField(default= " ")
-    fname = models.TextField(default= " ")
-    lname = models.TextField(default= " ")
-    email = models.TextField(default= " ")
-    phone = models.TextField(default=" ")
-    homeAirport = models.TextField(default=" ")
-    streetAddr = models.TextField(default=" ")
-    unit = models.TextField(default=" ")
-    city = models.TextField(default= " ")
-    state = models.TextField(default= " ")
-    zip = models.TextField(default=" ")
-    country = models.TextField(default=" ")
-    gender = models.TextField(default="male")
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    location = models.CharField(max_length=5120, blank=True, null=True)
+    fname = models.CharField(max_length=5120, blank=True, null=True)
+    lname = models.CharField(max_length=5120, blank=True, null=True)
+    email = models.CharField(max_length=5120, blank=True, null=True)
+    phone = models.CharField(max_length=5120, blank=True, null=True)
+    homeAirport = models.CharField(max_length=5120, blank=True, null=True)
+    streetAddr = models.CharField(max_length=5120, blank=True, null=True)
+    unit = models.CharField(max_length=5120, blank=True, null=True)
+    city = models.CharField(max_length=5120, blank=True, null=True)
+    state = models.CharField(max_length=5120, blank=True, null=True)
+    zip = models.CharField(max_length=5120, blank=True, null=True)
+    country = models.CharField(max_length=5120, blank=True, null=True)
+    gender = models.CharField(max_length=64, default='male')
     travellerPictures = models.ImageField(upload_to="travellerPics/", default="img/300x300.png")  # Field name made lowercase.(HTML)
+    user = models.ForeignKey(User, unique=True)
 
     class Meta:
         managed = True
-        db_table = "Traveller"
+        verbose_name_plural = 'Traveller'
 
-
-class Merchant(models.Model):
-    merchantID = models.AutoField(primary_key=True)
-    merchantName = models.TextField(db_column='merchantname')
-    email = models.TextField(default=" ")
-    phone = models.TextField(default=" ")
-    streetAddr = models.TextField(default=" ")
-    unit = models.TextField(default=" ")
-    city = models.TextField(default=" ")
-    state = models.TextField(default=" ")
-    zip = models.TextField(default=" ")
-    country = models.TextField(default=" ")
-
-    class Meta:
-        managed=True
-        db_table="Merchant"

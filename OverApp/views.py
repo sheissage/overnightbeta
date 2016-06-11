@@ -7,8 +7,10 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 import django
+from .models import HotelInfo, RoomInfo, Merchant, Package
 import models
 from django.core.mail import EmailMultiAlternatives
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 # Create your views here.
@@ -90,16 +92,27 @@ def showUserProfileSettings(request):
 def updateRoomInfo(request):
     if request.method == 'POST':
         params = request.POST
-        print(params)
         roomType = params.get("roomType")
         date = params.get("start")
         price = params.get("price")
         discount = params.get('discount')
         destination = params.get("destination")
-        roomobj = models.RoomInfo(Destination=destination, roomType=roomType,
-                                  date=date, airportTransfer=price,
-                                  ratePerNight=price, discountPercent=discount,
-                                  hoteltax=price, servicecharge=price)
+
+        merchant = Merchant.objects.get(user=request.user)
+        hotel = HotelInfo.objects.get(merchant=merchant)
+
+        roomobj = RoomInfo(
+            Destination=destination, 
+            roomType=roomType,
+            date=date, 
+            airportTransfer=price,
+            ratePerNight=price, 
+            discountPercent=discount,
+            hotelTax=price, 
+            serviceCharge=price,
+            merchant=merchant,
+            hotel=hotel
+            )
         roomobj.save()
 
     roomdata = models.RoomInfo.objects.all().values()
@@ -107,8 +120,13 @@ def updateRoomInfo(request):
 
 
 def managePackage(request):
-    roomdata = models.RoomInfo.objects.all().values('roomType')
-    return render(request, "managePackage.html", {'data': roomdata})
+    merchant = Merchant.objects.get(user=request.user)
+    roomdata = RoomInfo.objects.filter(merchant=merchant)
+    context = {
+        'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
+        'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
+    }
+    return render(request, "hotelDashboard.html", context)
 
 
 def createPackage(request):
@@ -119,13 +137,25 @@ def createPackage(request):
         services = request.POST['services']
         roomType = request.POST['roomType']
 
+        merchant = Merchant.objects.get(user=request.user)
+        hotel = HotelInfo.objects.get(merchant=merchant)
         package = models.Package(
-            packagename=name, packagedesc=packagedesc,
-            price=price, roomType=roomType, serviceList=services)
+            packageName=name, 
+            packageDesc=packagedesc,
+            price=float(price), 
+            roomType=roomType, 
+            serviceList=services,
+            merchant=merchant,
+            hotel=hotel
+            )
         package.save()
-        packageResponse = managePackage(request)
-
-        return packageResponse
+        
+        roomdata = RoomInfo.objects.filter(merchant=merchant)
+        context = {
+            'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
+            'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
+        }
+        return render(request, "hotelDashboard.html", context)
 
 
 def createRoom(request):
@@ -137,37 +167,64 @@ def createRoom(request):
         amenities = request.POST['amenities']
         services = request.POST['services']
         roomtypes = request.POST['roomtype']
-        maxindex = getMax()+1
-        print('maxindex')
-        hotelId = destination+"-"+str('maxindex')
-        roomarr = roomtypes.split(",")
-        username = request.user
-        print('username')
-        for each in roomarr:
-            room = models.RoomInfo(HotelName=name, date='2016-06-01',
-                                   ownerId=request.user, roomType=each.upper(
-                                   ), Destination=destination,
-                                   ratePerNight=0, packagePrice=0,
-                                   discountPercent=0, airTransfer=0,
-                                   serviceCharges=0, tax=0)
+
+        maxindex = int(getMax()) + 1
+        
+        hotelId = destination + '-' + str(maxindex)
+        room_types = roomtypes.split(',')
+
+        merchant = Merchant.objects.get(user=request.user)
+        
+        ##################
+        """ save hotel """
+        ##################
+
+        hotel = HotelInfo(
+            hotelName=name,
+            hotelId=hotelId, 
+            destination=destination,
+            hotelAddress=address, 
+            hotelAmens=amenities,
+            hotelServices=services,
+            hotelRoomTypes=roomtypes,
+            merchant=merchant
+        )
+
+        hotel.save()
+
+        ##################
+        """ save rooms """
+        ##################
+        
+        for room_type in room_types:
+            room = RoomInfo(
+                hotel=hotel, 
+                merchant=merchant, 
+                roomType=room_type.upper(), 
+                destination=destination,
+                ratePerNight=0,
+                discountPercent=0, airportTransfer=0,
+                serviceCharge=0, hotelTax=0
+            )
+
             room.save()
 
-        hotel = models.HotelInfo(HotelID=hotelId, Destination=destination,
-                                 HotelAddress=address, HotelAmens=amenities,
-                                 HotelServices=services)
-        hotel.save()
         request.session['sess_hotelId'] = hotelId
-    return render(request, 'uploadPics.html', {"data": hotelId})
-    # return HttpResponse(destination+name+address+amenities+services+maxindex)
 
+    return render(request, 'uploadPics.html', {"data": hotelId})
 
 def uploadPics(request):
     hotelId = request.session['sess_hotelId']
-    hotel = models.HotelInfo.objects.get(HotelID=hotelId)
-    hotel.HotelPictures = request.FILES['hotelImage']
+    hotel = HotelInfo.objects.get(hotelId=hotelId)
+    hotel.hotelPictures = request.FILES['hotelImage']
     hotel.save()
-    roomdata = models.Roominfo.objects.filter(ownerId=request.user).values()
-    return render(request, "hotelDashboard.html", {'roomdata': roomdata})
+
+    roomdata = RoomInfo.objects.filter(merchant=hotel.merchant)
+    context = {
+        'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
+        'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
+    }
+    return render(request, "hotelDashboard.html", context)
 
 
 def createMerchant(request):
@@ -178,32 +235,40 @@ def createMerchant(request):
         email = request.POST['email']
         password = request.POST['password']
         repass = request.POST['repass']
+
         if repass == password:
             user = User.objects.create_user(
                 username=email, email=email, password=password)
             user.first_name = fname
             user.last_name = lname
             user.save()
-            # modUser=django.contrib.auth.models.AuthUser.objects.get(email=email)
-            # modUser.first_name=fname
-            # modUser.last_name=lname
-            # modUser.save()
+
+            merchant = Merchant(
+                user=user,
+                merchantName=user.first_name + ' ' + user.last_name,
+                email=user.email
+            )
+            merchant.save()
+
             if user is None:
                 return HttpResponse("Merchant Cannot be created")
-            subject, from_email, to = "Welcome to " + \
-                "Overnight.asia (beta)", 'enquiry@overnight.asia', email
-            text_content = 'Thank you for signing up as a partner. ' + \
-                fname+"\n You're one of the #Overnight20 partners."
-            html_content = '<p>Thank you for signing up as a partner.</p>'
-            msg = EmailMultiAlternatives(
-                subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+
+            # subject, from_email, to = "Welcome to " + \
+            #     "Overnight.asia (beta)", 'enquiry@overnight.asia', email
+            # text_content = 'Thank you for signing up as a partner. ' + \
+            #     fname+"\n You're one of the #Overnight20 partners."
+            # html_content = '<p>Thank you for signing up as a partner.</p>'
+            # msg = EmailMultiAlternatives(
+            #     subject, text_content, from_email, [to])
+            # msg.attach_alternative(html_content, "text/html")
+            # msg.send()
+
             return render(request, 'merchantLogin.html')
         return render(request, "merchantSignup.html",
                       {"data": "Passwords do not match"})
 
 
+@ensure_csrf_cookie
 def logonMerchant(request):
     request.context = RequestContext(request)
     if request.method == 'POST':
@@ -214,27 +279,24 @@ def logonMerchant(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                print(request.user)
-                roomdata = models.RoomInfo.objects.filter(
-                    ownerId=user).values()
-                return render(request, "hotelDashboard.html",
-                              {'roomdata': roomdata})
+                merchant = Merchant.objects.get(user=user)
+                roomdata = RoomInfo.objects.filter(merchant=merchant)
+                context = {
+                    'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
+                    'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
+                }
+                return render(request, "hotelDashboard.html", context)
             return HttpResponse("User is not active")
         return HttpResponse("Invalid User")
 
 
 def getMax():
-    idarr = []
-    allIds = models.HotelInfo.objects.all().order_by(
-        "HotelID").values("HotelID")
-    for each in allIds:
-        idarr.append(int(each['HotelID'].split("-")[1]))
-    return max(idarr)
+    hotel = HotelInfo.objects.all().order_by('-created').first()
+    if not hotel:
+        return 0
+    max_id = (hotel.hotelId).split('-')[1]
 
-# def jsonify(val,type):
-#     initstr='['
-#     valarr=val.split(",")
-#     for each in valarr:
+    return max_id
 
 
 def signupUser(request):

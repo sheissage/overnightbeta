@@ -118,13 +118,17 @@
 								<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>To
 								</label> <input class="form-control" name="end" type="text" />
 								<br>
-								 <select name="roomType" class="form-control">
-								 {% for eachRoom in roomdata %}
- 									 <option value="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>
- 									{% endfor %}
-								</select> <br>
-							
-								<br><input class="form-control" name="destination" type="text" step="0" placeholder ="Destination"/>
+								<select name="roomType" class="form-control">
+								{% for roomtype in roomtypes %}
+ 									<option value="{{roomtype}}">{{roomtype}}</option>
+ 								{% endfor %}
+								</select> 
+								</br>
+								<select name="destination" class="form-control">
+								{% for destination in destinations %}
+ 									<option value="{{destination}}">{{destination}}</option>
+ 								{% endfor %}
+								</select> 
 								<br><input class="form-control" name="price" type="number" step="0" placeholder ="Rate"/>
 							
 							<br>	<input class="form-control" name="airporttransport" type="number" step="0" placeholder ="Airpoty Transport"/>
