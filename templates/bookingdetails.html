@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
     <script src="{% static 'js/modernizr.js' %}"></script>
 
 
@@ -94,13 +96,13 @@
 
 
             <div class="container">
-{% for eachHotel in hoteldata %} 
-                
+{% for eachHotel in hoteldata %}
+
 
                     <div class="col-md-4" style="float: right; background-color: #ed8323; border-radius:8px;">
 
                         <aside class="user-profile-sidebar" style="background-color: #ed8323">
-                            <div class="text-center"> 
+                            <div class="text-center">
 
                                 <p>Booking Summary</p><br>
                                 <p align="justify">Hotel .................................................:$ {{eachHotel.PriceByDate}} (USD)</p>
@@ -111,7 +113,7 @@
 
                         </aside>
                     </div>
-                    
+
                  <div class="row">
                  <form action="/callPriceRefresh/">
                 <div class="input-daterange" data-date-format="MM d, D">
@@ -121,11 +123,11 @@
                             <h3> <font color="#ff5a00;">{{eachHotel.HotelName}}</font></h3>
                             <i class="fa fa-map-marker"></i> Jl. Petitenget No.99, Seminyak, Kuta Utara, Kabupaten Badung, Bali, Indonesia.<br>
                             Room Type:<select class="form-control" style="width : 50%" name="roomType">
-										{% for eachRoom in roomdata%}<option name="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>{% endfor %}                            
+										{% for eachRoom in roomdata%}<option name="{{eachRoom.roomType}}">{{eachRoom.roomType}}</option>{% endfor %}
                             </select>
                             <button class="btn btn-primary btn-lg" type="submit"> Check Prices</button>
                             <br>
-                           <hr/> 
+                           <hr/>
                         </div>
 
                         <div class="col-md-12"><h5>Select Dates</h5></div>
@@ -144,20 +146,20 @@
                             </div>
                         </div>
 {% endfor%}
-                
+
                          <!-- Attractions Row-->
 
 
-          
+
 
         </div>
                     </div>
                      <hr/>
             <!--Booking Details Row-->
-  
-  
+
+
     <div class="col-md-7"><br><br>
-        
+
       <h4>Hotel Transfer</h4>
       <h5 style="color: #ff5a00">Please state if you require a chaffeur-driven car to your hotel.<br>
         This is a complimentary service.</h5>
@@ -165,46 +167,46 @@
 
 <input value="Yes"class="form-control" id="hoteltransfer" type="text" />
 </div>
-      <hr/>  
+      <hr/>
       <h4>Select Transfer Location</h4>
       <h5 style="color: #ff5a00">Current transfer locations are airports and railway stations only.</h5>
          <div class="form-group form-group-icon-left" style="width:70%">
              <input class="form-control" type="text" value="Ngurah Rai International Airport" id="transferlocation">
         </div>
 
-     
-        
+
+
           <h4>Estimated Time of Arrival</h4>
             <div class="form-group form-group-icon-left" style="width:70%">
           <input value="11.00 AM" class="form-control" type="text" id="eta">
             </div>
-       
+
           <h4>Estimated Check-in Time</h4>
           <div class="form-group form-group-icon-left" style="width:70%">
           <input class="form-control"  value="12.30 PM"type="text" id="estcheckin">
         </div>
         </div><br><br>
 
-                  
-                     
-                     
-                     
 
-            </form>	
+
+
+
+
+            </form>
 
                 </div>
 
-<hr/> 
-                
-       
-                
+<hr/>
+
+
+
   <!-- Payment Row-->
   <h3>Payment Method</h3>
       <br>
     <div class="col-md-4">
-      
+
         <h4>Pay With Stripe</h4>
-        
+
         <!--Stripe-->
            <form action="" method="POST">
   <script
@@ -217,8 +219,8 @@
     data-locale="auto">
   </script>
 </form>
-     </div>    
-        
+     </div>
+
 
     <div class="col-md-11   " style="text-align: right;">
 
@@ -239,69 +241,35 @@
 
 
 
-            <div class="gap"></div>
+                    <div class="gap"></div>
+                		<footer>
+                			<div class="container">
+                				<div class="row">
+                					<div class="col-md-8"></div>
+                					<div class="col-md-3" style="padding-bottom: 10px; text-align: right;">
+                						<a href="https://www.facebook.com/overnightasia/"><i class="fa fa-facebook" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+                						<a href="https://www.instagram.com/overnightasia/"><i class="fa fa-instagram" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+                						<a href="https://twitter.com/overnightasia"><i class="fa fa-twitter" aria-hidden="true" style="color: #ff8400; font-size: 19px;"></i> &nbsp;</a>
+                						<a href="https://www.linkedin.com/company/overnight-asia"><i class="fa fa-linkedin" aria-hidden="true" style="color: #ff8400; font-size: 20px;"></i> &nbsp;</a>
+                						<a href="http://www.overnight.asia/mailto:ahshida@overnight.asia"><i class="fa fa-envelope-o" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
 
-            <footer id="main-footer">
-                <div class="container">
+                					</div>
 
-                    <div class="col-md-2">
-                        <ul class="list list-footer">
-                            <li><a href="#">About US</a></li>
-
-                        </ul>
-                    </div>
-
-                    <div class="col-md-2">
-                        <ul class="list list-footer">
-                            <li><a href="#">Partners</a></li>
-
-                        </ul>
-                    </div>
-
-
-                    <div class="col-md-2">
-                        <ul class="list list-footer">
-                            <li><a href="#">Support</a></li>
-
-                        </ul>
-                    </div>
-
-                    <div class="col-md-2">
-                        <ul class="list list-footer">
-                            <li><a href="#">FAQ</a></li>
-
-                        </ul>
-                    </div>
-
-
-
-
-                    <div class="col-md-3">
-
-                        <ul class="list list-horizontal list-space">
-                            <li><a
-                                class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top"
-                                href="#"></a></li>
-                            <li><a
-                                class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top"
-                                href="#"></a></li>
-                            <li><a
-                                class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top"
-                                href="#"></a></li>
-                            <li><a
-                                class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top"
-                                href="#"></a></li>
-                            <li><a
-                                class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top"
-                                href="#"></a></li>
-                        </ul>
-                    </div>
-
-
-
-                </div>
-        
-        </footer>
+                				</div>
+                			</div>
+                			<div class="container">
+                				<div class="row" style="font-size: 14px;">
+                					<div class="col-md-1"></div>
+                					<div class="col-md-3" style="color: #ff8400;">Overnight.asia All Rights Reserved 2016</div>
+                					<div class="col-md-3"></div>
+                					<div class="col-md-4" style="text-align: right;"><a style="color: #ff8400;" href="http://www.overnight.asia/about.html">About |</a>
+                						<a style="color: #ff8400;" href="http://www.overnight.asia/privacy-policy.html">Privacy Policy |</a>
+                						 <a style="color: #ff8400;" href="http://www.overnight.asia/terms-of-website.html">Terms of Website </a> </div>
+                					<div class="col-md-1"></div>
+                				</div><br><br><br>
+                			</div>
+                	</div>
+                	</footer>
 
     <script  src="{% static 'js/jquery.js' %}" ></script>
         <script src= "{% static 'js/bootstrap.js' %}"></script>
@@ -324,9 +292,7 @@
         <script src= "{% static 'js/countdown.js' %}"></script>
         <script src="{% static 'js/gridrotator.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
-        
+
     </body>
 
     </html>
-
-
