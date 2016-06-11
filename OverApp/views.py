@@ -11,6 +11,7 @@ from .models import HotelInfo, RoomInfo, Merchant, Package
 import models
 from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -121,32 +122,37 @@ def updateRoomInfo(request):
 
 def managePackage(request):
     merchant = Merchant.objects.get(user=request.user)
-    roomdata = RoomInfo.objects.filter(merchant=merchant)
+    hotels = HotelInfo.objects.filter(merchant=merchant).values('hotelId', 'hotelName')
     context = {
-        'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
-        'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
+        'hotels': hotels
     }
-    return render(request, "hotelDashboard.html", context)
+    return render(request, "managePackage.html", context)
 
 
 def createPackage(request):
     if request.method == 'POST':
+        print request.POST
         name = request.POST['name']
         packagedesc = request.POST['packagedesc']
         price = request.POST['price']
         services = request.POST['services']
-        roomType = request.POST['roomType']
+        room_pk = int(request.POST['roomType'])
+        hotel = request.POST['hotel']
 
         merchant = Merchant.objects.get(user=request.user)
-        hotel = HotelInfo.objects.get(merchant=merchant)
+        hotel = HotelInfo.objects.get(merchant=merchant, pk=hotel)
+
+        room = RoomInfo.objects.get(merchant=merchant, hotel=hotel, pk=room_pk)
+
         package = models.Package(
             packageName=name, 
             packageDesc=packagedesc,
-            price=float(price), 
-            roomType=roomType, 
+            price=float(price),
+            roomType=room.roomType, 
             serviceList=services,
             merchant=merchant,
-            hotel=hotel
+            hotel=hotel,
+            room=room
             )
         package.save()
         
@@ -267,8 +273,22 @@ def createMerchant(request):
         return render(request, "merchantSignup.html",
                       {"data": "Passwords do not match"})
 
+def getRoomTypes(request):
+    if request.method == 'GET' and request.is_ajax:
+        hotelId = request.GET.get('hotelId', '')
+        hotel = HotelInfo.objects.get(hotelId=hotelId)
+        roomTypes = RoomInfo.objects.filter(hotel=hotel).values('pk', 'roomType')
+        result = []
 
-@ensure_csrf_cookie
+        for roomType in roomTypes:
+            cache = {}
+            cache['pk'] = roomType.get('pk')
+            cache['roomType'] = roomType.get('roomType')
+            result.append(cache)
+
+        print result
+        return JsonResponse(result, safe=False)
+
 def logonMerchant(request):
     request.context = RequestContext(request)
     if request.method == 'POST':

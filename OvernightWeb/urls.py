@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^createPackage/', views.createPackage),
     url(r'^merchantSignup/', views.merchantSignup),
     url(r'^uploadPics/', views.uploadPics),
+    url(r'^getRooms/', views.getRoomTypes),
     url(r'^media/(?P<path>.*)$',
         'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT,}),

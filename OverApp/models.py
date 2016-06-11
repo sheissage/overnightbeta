@@ -94,6 +94,7 @@ class Package(models.Model):
     serviceCharge = models.FloatField(default=0)
     hotel = models.ForeignKey('OverApp.HotelInfo')
     merchant = models.ForeignKey('OverApp.Merchant')
+    room = models.ForeignKey('OverApp.RoomInfo')
 
     class Meta:
         managed = True
