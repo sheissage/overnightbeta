@@ -1,20 +1,30 @@
 from __future__ import unicode_literals
-from django.shortcuts import render
+
+import django
 import json
+import time
+
 from searchModule import queryBuilder as qb
+from .models import HotelInfo, RoomInfo, Merchant, Package, HotelAvailability
+import models
+
+###################
+""" Dajngo libs"""
+###################
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.template import RequestContext
-from django.contrib.auth import authenticate, login, logout
-import django
-from .models import HotelInfo, RoomInfo, Merchant, Package
-import models
+from django.views.decorators.csrf import csrf_protect
 from django.core.mail import EmailMultiAlternatives
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.db.models import Q
 
 
 # Create your views here.
+
 def landing_page(request):
     return render(request, 'landingpage.html')
 
@@ -90,34 +100,61 @@ def showUserProfileSettings(request):
     return render(request, "user-profile-settings.html")
 
 
-def updateRoomInfo(request):
+def addAvailability(request):
     if request.method == 'POST':
         params = request.POST
-        roomType = params.get("roomType")
-        date = params.get("start")
+
+        room_pk = int(params.get("roomType"))
+        hotel_pk = params.get('hotel')
+
+        start = params.get("start")
+        end = params.get("end")
+
+        airportTransport = params.get('airporttransport')
+        serviceCharge = params.get('servicecharge')
+        
         price = params.get("price")
         discount = params.get('discount')
-        destination = params.get("destination")
+        hotelTax = params.get('hoteltax')
+
+        pattern = '%Y-%m-%d'
+        start_epoch = int(time.mktime(time.strptime(start, pattern)))
+        end_epoch = int(time.mktime(time.strptime(end, pattern)))
 
         merchant = Merchant.objects.get(user=request.user)
-        hotel = HotelInfo.objects.get(merchant=merchant)
+        hotel = HotelInfo.objects.get(merchant=merchant, pk=hotel_pk)
+        room = RoomInfo.objects.get(merchant=merchant, hotel=hotel, pk=room_pk)
 
-        roomobj = RoomInfo(
-            Destination=destination, 
-            roomType=roomType,
-            date=date, 
-            airportTransfer=price,
-            ratePerNight=price, 
-            discountPercent=discount,
-            hotelTax=price, 
-            serviceCharge=price,
+        #####################################################
+        """ check if date availability is already present """
+        #####################################################
+        availabilities = HotelAvailability.objects.filter(
             merchant=merchant,
-            hotel=hotel
-            )
-        roomobj.save()
+            hotel=hotel,
+            room=room
+        )
 
-    roomdata = models.RoomInfo.objects.all().values()
-    return render(request, 'hotelDashboard.html', {'roomdata': roomdata})
+        for availability in availabilities:
+            date_range = range(availability.start, availability.end)
+            if start_epoch in date_range or end_epoch in date_range:
+                return HttpResponse('Invalid - Overlapping dates')
+
+
+        availability = HotelAvailability(
+            start=start_epoch, 
+            end=end_epoch,
+            discountPercent=float(discount),
+            hotelTax=float(hotelTax),
+            serviceCharge=float(serviceCharge),
+            airportTransfer=float(airportTransport),
+            ratePerNight=float(price),
+            merchant=merchant,
+            hotel=hotel,
+            room=room
+        )
+        availability.save()
+
+    return redirect('hotel-dashboard')
 
 
 def managePackage(request):
@@ -131,7 +168,6 @@ def managePackage(request):
 
 def createPackage(request):
     if request.method == 'POST':
-        print request.POST
         name = request.POST['name']
         packagedesc = request.POST['packagedesc']
         price = request.POST['price']
@@ -156,12 +192,7 @@ def createPackage(request):
             )
         package.save()
         
-        roomdata = RoomInfo.objects.filter(merchant=merchant)
-        context = {
-            'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
-            'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
-        }
-        return render(request, "hotelDashboard.html", context)
+        return redirect('hotel-dashboard')
 
 
 def createRoom(request):
@@ -206,7 +237,7 @@ def createRoom(request):
             room = RoomInfo(
                 hotel=hotel, 
                 merchant=merchant, 
-                roomType=room_type.upper(), 
+                roomType=room_type.upper().strip(), 
                 destination=destination,
                 ratePerNight=0,
                 discountPercent=0, airportTransfer=0,
@@ -225,12 +256,7 @@ def uploadPics(request):
     hotel.hotelPictures = request.FILES['hotelImage']
     hotel.save()
 
-    roomdata = RoomInfo.objects.filter(merchant=hotel.merchant)
-    context = {
-        'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
-        'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
-    }
-    return render(request, "hotelDashboard.html", context)
+    return redirect('hotel-dashboard')
 
 
 def createMerchant(request):
@@ -289,6 +315,7 @@ def getRoomTypes(request):
         print result
         return JsonResponse(result, safe=False)
 
+
 def logonMerchant(request):
     request.context = RequestContext(request)
     if request.method == 'POST':
@@ -297,17 +324,27 @@ def logonMerchant(request):
         user = authenticate(username=email, password=password)
 
         if user is not None:
+            print user
+            print user.is_active
             if user.is_active:
+
                 login(request, user)
-                merchant = Merchant.objects.get(user=user)
-                roomdata = RoomInfo.objects.filter(merchant=merchant)
-                context = {
-                    'roomtypes': roomdata.values_list('roomType', flat=True).distinct('roomType'),
-                    'destinations': roomdata.values_list('destination', flat=True).distinct('destination')
-                }
-                return render(request, "hotelDashboard.html", context)
+                try:
+                    merchant = Merchant.objects.get(user=user)
+                except:
+                    return HttpResponse("Invalid User")
+                return redirect('hotel-dashboard')
             return HttpResponse("User is not active")
         return HttpResponse("Invalid User")
+
+
+def hotelDashboardRedirect(request):
+    merchant = Merchant.objects.get(user=request.user)
+    hotels = HotelInfo.objects.filter(merchant=merchant).values('hotelId', 'hotelName')
+    context = {
+        'hotels': hotels
+    }
+    return render(request, "hotelDashboard.html", context, content_type="text/html")
 
 
 def getMax():

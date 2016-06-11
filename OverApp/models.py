@@ -104,6 +104,24 @@ class Package(models.Model):
     def packageparse(val):
         return val.split(",")
 
+class HotelAvailability(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    start = models.IntegerField()
+    end = models.IntegerField()
+    discountPercent = models.FloatField(default=0)
+    hotelTax = models.FloatField(default=0)
+    serviceCharge = models.FloatField(default=0)
+    airportTransfer = models.FloatField(default=0)
+    ratePerNight = models.FloatField(default=0)
+    hotel = models.ForeignKey('OverApp.HotelInfo')
+    merchant = models.ForeignKey('OverApp.Merchant')
+    room = models.ForeignKey('OverApp.RoomInfo')
+
+    class Meta:
+        managed = True
+        verbose_name_plural = 'HotelAvailability'
+
 
 class Traveller(models.Model):
     created = models.DateTimeField(auto_now_add=True)

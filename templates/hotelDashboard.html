@@ -106,7 +106,7 @@
 
 <br>To update rooms fill the form below<br><br>
 
-		<form method="POST" action="/updateRoominfo/">
+		<form method="POST" action="/addAvailability/">
 		{% csrf_token%}
 			<div class="input-daterange" data-date-format="yyyy-mm-dd">
 				<div class="row">
@@ -118,17 +118,17 @@
 								<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>To
 								</label> <input class="form-control" name="end" type="text" />
 								<br>
-								<select name="roomType" class="form-control">
-								{% for roomtype in roomtypes %}
- 									<option value="{{roomtype}}">{{roomtype}}</option>
- 								{% endfor %}
-								</select> 
+
+								<select id="hotel" name="hotel" class="form-control" onchange="getRooms(this.value)">
+		
+									{% for hotel in hotels%}
+										<option value="{{hotel.hotelId}}">{{hotel.hotelName}}</option>
+									{% endfor %}				
+								</select>
 								</br>
-								<select name="destination" class="form-control">
-								{% for destination in destinations %}
- 									<option value="{{destination}}">{{destination}}</option>
- 								{% endfor %}
-								</select> 
+								<select id="roomType" name="roomType" class="form-control">			
+								</select>
+								</br>
 								<br><input class="form-control" name="price" type="number" step="0" placeholder ="Rate"/>
 							
 							<br>	<input class="form-control" name="airporttransport" type="number" step="0" placeholder ="Airpoty Transport"/>
@@ -207,6 +207,55 @@
 
 </body>
 <script>
+
+$( document ).ready(function() {
+    var hotel = document.getElementById("hotel");
+	var selected = hotel.options[hotel.selectedIndex].value;
+	getRooms(selected);
+});
+
+function removeOptions(selectbox) {
+    var i;
+    for(i=selectbox.options.length-1;i>=0;i--) {
+        selectbox.remove(i);
+   	}
+}
+
+
+function getRooms(id) {
+	$.ajax({
+		url: '/getRooms/',
+		type: 'GET',
+		data: {
+			'hotelId': id
+		},
+		success: function(data) {
+			var roomType = document.getElementById("roomType");
+			removeOptions(roomType);
+			
+			for (entry in data) {
+				if (entry < data.length) {
+					console.log(data[entry].roomType);
+					var option = document.createElement("option");
+					option.text = data[entry].roomType;
+					option.value = data[entry].pk;
+
+					roomType.add(option, roomType[entry]);
+
+				}
+			}
+
+			
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			console.log(errorThrown);
+			console.log(textStatus);
+			
+        }
+	});
+}
+
+
 $('a[href*=#]:not([href=#])').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
         || location.hostname == this.hostname) {

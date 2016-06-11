@@ -209,11 +209,11 @@ $(document).ready(
     // footer always on bottom
     var docHeight = $(window).height();
    var footerHeight = $('#main-footer').height();
-   var footerTop = $('#main-footer').position().top + footerHeight;
+    // var footerTop = $('#main-footer').position().top + footerHeight;
    
-   if (footerTop < docHeight) {
-    $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
-   }
+   // if (footerTop < docHeight) {
+   //  $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
+   // }
     }
 
 
