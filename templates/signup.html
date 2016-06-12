@@ -88,18 +88,18 @@
 
 				<div class="col-md-4">
 
-					<form>
+					<form method="POST" enctype="multipart/form-data" action="/signupPage2/">
+						{% csrf_token %}
 						<div class="form-group form-group-icon-left">
 							<h3>Hey there! How shall I address you?</h3>
 							<br> <label>First Name</label> <input class="form-control"
-								placeholder="" type="text" style="padding-left: 4px;" />
+								placeholder="" name="firstname" type="text" style="padding-left: 4px;" />
 						</div>
 						<div class="form-group form-group-icon-left">
 							<label>Last Name</label> <input class="form-control"
-								placeholder="" type="text" style="padding-left: 4px;" />
+								placeholder="" name="lastname" type="text" style="padding-left: 4px;" />
 						</div>
-						<input class="btn btn-primary" type="submit" value="Next"
-							href="signup2.html" /><br>
+						<input class="btn btn-primary" type="submit" value="Next"/><br>
 						<br>
 
 					</form>

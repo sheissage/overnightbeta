@@ -5,7 +5,7 @@ import json
 import time
 
 from searchModule import queryBuilder as qb
-from .models import HotelInfo, RoomInfo, Merchant, Package, HotelAvailability
+from .models import HotelInfo, RoomInfo, Merchant, Package, HotelAvailability, Traveller
 import models
 
 ###################
@@ -324,8 +324,6 @@ def logonMerchant(request):
         user = authenticate(username=email, password=password)
 
         if user is not None:
-            print user
-            print user.is_active
             if user.is_active:
 
                 login(request, user)
@@ -355,55 +353,6 @@ def getMax():
 
     return max_id
 
-
-def signupUser(request):
-    if request.method == 'POST':
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        email = request.POST['email']
-        passwd = request.POST['passwd']
-        repass = request.POST['repass']
-        gender = request.POST['gender']
-        country = request.POST['country']
-        city = request.POST['city']
-        street = request.POST['street']
-        unit = request.POST['unit']
-        zipcode = request.POST['zip']
-
-        if repass == passwd:
-            user = User.objects.create_user(
-                username=email, email=email, password=passwd)
-            user.first_name = fname
-            user.last_name = lname
-            user.save()
-            # modUser=django.contrib.auth.models.AuthUser.objects.get(email=email)
-            # modUser.first_name=fname
-            # modUser.last_name=lname
-            # modUser.save()
-            if user is None:
-                return HttpResponse("User Cannot Be Created")
-
-            newTraveller = models.Traveller(fname=fname, lname=lname,
-                                            email=email, gender=gender,
-                                            unit=unit, streetAddr=street,
-                                            city=city, zip=zipcode,
-                                            country=country, homeAirport=city)
-            newTraveller.save()
-            subject, from_email, to = 'Welcome to Overnight.asia (beta)',
-            'enquiry@overnight.asia', email
-            text_content = 'Hello! ' + fname + \
-                "\n Thank you for signing up as "\
-                "a beta member of Overnight.asia."
-            html_content = '<p>Hello! ' + fname + \
-                '<br> Thank you for signing on '\
-                '<strong>Overnight.asia</strong> .</p>'
-            msg = EmailMultiAlternatives(
-                subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-            return render(request, "login.html")
-
-
 def authenticateUser(request):
     if request.method == "POST":
         email = request.POST["email"]
@@ -415,6 +364,92 @@ def authenticateUser(request):
                 login(request, user)
                 resp = landing_page(request)
                 return resp
+
+def signupFirsttoSecond(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        
+        context = {
+            'firstname': firstname,
+            'lastname': lastname
+        }
+        return render(request, 'signup2.html',  context)
+
+def createTaveller(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        email = request.POST["email"]
+        gender = request.POST["gender"]
+        password = request.POST["password"]
+        repassword = request.POST["repassword"]
+        
+        if password == repassword:
+            try:
+                user = User.objects.create_user(
+                    username=email, email=email, password=password)
+                user.first_name = firstname
+                user.last_name = lastname
+                user.save()
+            except:
+                return HttpResponse('User email already exists')
+
+            traveller = Traveller(
+                fname=firstname, 
+                lname=lastname,
+                email=email,
+                gender=gender,
+                user=user
+            )
+            traveller.save()
+
+            # subject, from_email, to = 'Welcome to Overnight.asia (beta)',
+            # 'enquiry@overnight.asia', email
+            # text_content = 'Hello! ' + fname + \
+            #     "\n Thank you for signing up as "\
+            #     "a beta member of Overnight.asia."
+            # html_content = '<p>Hello! ' + fname + \
+            #     '<br> Thank you for signing on '\
+            #     '<strong>Overnight.asia</strong> .</p>'
+            # msg = EmailMultiAlternatives(
+            #     subject, text_content, from_email, [to])
+            # msg.attach_alternative(html_content, "text/html")
+            # msg.send()
+
+            context = {
+                'user': traveller.pk
+            }
+
+            return render(request, 'signup3.html',  context)
+        else:
+            return HttpResponse('Passwords Do not match')
+
+def createTravellerAddress(request):
+    if request.method == 'POST':
+        country = request.POST['country']
+        city = request.POST['city']
+        street = request.POST['street']
+        unit = request.POST['unit']
+        zipcode = request.POST['zip']
+
+        pk = int(request.POST['user'])
+
+        try:
+            traveller = Traveller.objects.get(pk=pk)
+            traveller.country = country
+            traveller.city = city
+            traveller.streetAddr = street
+            traveller.unit = unit
+            traveller.zip = zipcode
+
+            traveller.save()
+
+            return render(request, 'landingpage.html')
+        except Exception as e:
+            print e
+            return HttpResponse('Something wrong')
+
 
 
 def showSearchresult(request):
