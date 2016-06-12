@@ -1,17 +1,23 @@
 <!DOCTYPE HTML>
+<html lang="en">
 {% load staticfiles %}
 <html xmlns="http://www.w3.org/1999/html">
 
 <head>
-<title>Overnight.asia | Manage Content</title>
+<title>Overnight.asia | Create & Manage Hotel/Property</title>
 
 
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta name="keywords" content="Template, html, premium, themeforest" />
 <meta name="description"
 	content="Traveler - Premium template for travel companies">
-<meta name="author" content="Sambhav" >
+<meta name="author" content="Ahshida" >
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- GOOGLE FONTS -->
 <link
@@ -121,23 +127,25 @@
 
 								<br><select name="destination" class="form-control" style="width: 75%">
 								<option value="Bali">Bali</option>
+								<option value="Bangkok">Bandung</option>
 								<option value="Bangkok">Bangkok</option>
 								<option value="Jakarta">Jakarta</option>
 								<option value="Kuala Lumpur">Kuala Lumpur</option>
 								<option value="Penang">Penang</option>
 								<option value="Phuket">Phuket</option>
+								<option value="Phuket">Singapore</option>
 								<option value="Yangon">Yangon</option>
 								</select><br>
 
-								<br><input class="form-control" name="name" type="text" placeholder ="Property's Name"/>
-								<br><textarea class="form-control" name="address" type="text" rows="4" cols="50" placeholder ="Address"/>
+								<br><input class="form-control" name="name" type="text" placeholder ="Hotel/Property's Name"/>
+								<br><textarea class="form-control" name="address" type="text" rows="4" cols="50" placeholder ="Hotel/Property's Address"/>
 </textarea>
-							<br>	<textarea class="form-control" name="amenities" type="text" rows="4" cols="50" placeholder ="List Amenities, use commas"/>
+							<br>	<textarea class="form-control" name="amenities" type="text" rows="4" cols="50" placeholder ="List your amenities, please use commas"/>
 </textarea>
-				<br>	<textarea class="form-control" name="services" type="text" rows="4" cols="50" placeholder ="List services, use commas"/>
+				<br>	<textarea class="form-control" name="services" type="text" rows="4" cols="50" placeholder ="List your services, please use commas"/>
 </textarea>
 
-<br>	<textarea class="form-control" name="roomtype" type="text" rows="4" cols="50" placeholder ="List Roomtypes, use commas"/>
+<br>	<textarea class="form-control" name="roomtype" type="text" rows="4" cols="50" placeholder ="List the available room types, use commas"/>
 </textarea>
 
 						</div>
@@ -146,7 +154,7 @@
 					<div class="col-md-3">
 					</div>
 				</div>
-
+			<br>
 			<button class="btn btn-primary btn-lg" type="submit">Create</button>
 
 
