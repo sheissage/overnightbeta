@@ -1,9 +1,9 @@
-    <!DOCTYPE HTML>
+<!DOCTYPE HTML>
     {% load staticfiles %}
     <html>
 
     <head>
-    <title>Overnight.asia | Booking Detailsls</title>
+    <title>Overnight.asia | Booking Details</title>
 
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -106,8 +106,8 @@
 
                                 <p>Booking Summary</p><br>
                                 <p align="justify">Hotel .................................................:$ {{eachHotel.PriceByDate}} (USD)</p>
-                                <p align="justify">Attractions .......................................:$00(USD)</p>
-                                <p align="justify">Service Taxes....................................:$30(USD)</p><br>
+                                <p align="justify">Tax .......................................:${{eachHotel.AirportTransfer}} (USD)</p>
+                                <p align="justify">Service Charge....................................:${{eachHotel.ServiceCharge}}</p><br>
                                 <p align="justify">Total...................................................:$250(USD)</p><br>
                             </div>
 
@@ -160,21 +160,19 @@
 
     <div class="col-md-7"><br><br>
 
-      <h4>Hotel Transfer</h4>
+      <h4>Airport Transfer</h4>
       <h5 style="color: #ff5a00">Please state if you require a chaffeur-driven car to your hotel.<br>
         This is a complimentary service.</h5>
-        <div class="form-group form-group-icon-left" style="width:70%">
-
-<input value="Yes"class="form-control" id="hoteltransfer" type="text" />
+      <div class="row">
+        <div class="col-md-6 col-xs-8"><h4><input type="checkbox" checked>Yes</h4><br></div> 
+        <div class="col-md-6 col-xs-8"><h4><input type="checkbox" checked>No</h4><br></div>
 </div>
       <hr/>
       <h4>Select Transfer Location</h4>
-      <h5 style="color: #ff5a00">Current transfer locations are airports and railway stations only.</h5>
+      <h5 style="color: #ff5a00">Current transfer locations are airports only</h5>
          <div class="form-group form-group-icon-left" style="width:70%">
-             <input class="form-control" type="text" value="Ngurah Rai International Airport" id="transferlocation">
+             <input class="form-control" type="text" value="Default Airport" id="transferlocation">
         </div>
-
-
 
           <h4>Estimated Time of Arrival</h4>
             <div class="form-group form-group-icon-left" style="width:70%">
@@ -186,9 +184,6 @@
           <input class="form-control"  value="12.30 PM"type="text" id="estcheckin">
         </div>
         </div><br><br>
-
-
-
 
 
 
@@ -294,5 +289,8 @@
         <script src="{% static 'js/custom.js' %}"></script>
 
     </body>
+
+    </html>
+
 
     </html>
