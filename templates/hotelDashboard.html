@@ -152,14 +152,14 @@
                     </br>
                     <h4>Check Availability</h4>
                     <div class="col-md-4"> 
-                        <select id="hotel" name="hotel" class="form-control" onchange="getRooms(this.value)">  
+                        <select id="hotel" name="hotel" class="form-control" onchange="getRoomsAvailability(this.value)">  
                             {% for hotel in hotels%}
                                 <option value="{{hotel.hotelId}}">{{hotel.hotelName}}</option>
                             {% endfor %}                
                         </select>
                     </div>
                     <div class="col-md-4"> 
-                        <select id="{{room.roomType}}" name="roomType" class="form-control"></select>
+                        <select id="roomTypeAvailability" name="roomTypeAvailability" class="form-control"></select>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control" name="roomnumber" type="number" placeholder ="Type Room Number"/>
@@ -391,6 +391,39 @@ function getRooms(id) {
         },
         success: function(data) {
             var roomType = document.getElementById("roomType");
+            removeOptions(roomType);
+            
+            for (entry in data) {
+                if (entry < data.length) {
+                    console.log(data[entry].roomType);
+                    var option = document.createElement("option");
+                    option.text = data[entry].roomType;
+                    option.value = data[entry].pk;
+
+                    roomType.add(option, roomType[entry]);
+
+                }
+            }
+
+            
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(errorThrown);
+            console.log(textStatus);
+            
+        }
+    });
+}
+
+function getRoomsAvailability(id) {
+    $.ajax({
+        url: '/getRooms/',
+        type: 'GET',
+        data: {
+            'hotelId': id
+        },
+        success: function(data) {
+            var roomType = document.getElementById("roomTypeAvailability");
             removeOptions(roomType);
             
             for (entry in data) {
