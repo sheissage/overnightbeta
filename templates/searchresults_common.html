@@ -90,7 +90,7 @@
 
 		<div class="booking-title" id="search-dialog">
 
-			<form action="searchresults.html#results">
+			<form name="myform" method="GET" action="/search/">
 				<div class="form-group form-group-lg form-group-icon-left">
 					<center>
 
@@ -99,9 +99,9 @@
 						<div class="gap"></div>
 						<div class="gap"></div>
 
-						<label>Hey! What's on your thoughts?</label> <input
-							class="form-control" placeholder="" type="text"
-							onFocus="this.value=''" style="width: 50%; padding-left: 4px;" />
+						<label>Hey! What's on your thoughts?</label>
+						<input id="searchbar" name="searchbar" class="form-control" placeholder="" type="text"
+							onFocus="this.value=''" style="width: 50%; padding-left: 4px;" value="{{query}}" />
 					</center>
 				</div>
 				<center>
@@ -126,7 +126,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group form-group-icon-left">
-							<h4 id="results">We Found 3 hotels matching your requirements</h4>
+							<h4 id="results">We Found {{ count }} hotels matching your requirements</h4>
 
 						</div>
 					</div>
@@ -149,243 +149,85 @@
 		<div class="row">
 			<div class="col-md-12 " style="margin: 0 auto;">
 				<ul class="booking-list">
+					<!--ITEMS-->
+					{% for hotel in hotels %}
+						<li>
 
+							<div class="col-md-12">
+								<div class="header">
+									<br>
+									<h3 class="booking-item-title">{{ hotel.hotelName}}</h3>
 
-
-					<!--Number 1-->
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">The Indies Heritage Hotel</h3>
-
-							</div>
-
-
-						</div>
-						<!-- end of col md 12-->
-						<div class="col-md-6" style="margin: 0 auto;">
-
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24-hour front desk</a></li>
-										<li><a href="#">Express check-in/check-out</a></li>
-										<li><a href="#">Tour desk</a></li>
-										<li><a href="#">Concierge service</a></li>
-										<li><a href="#">Laundry</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Free WiFi</a></li>
-										<li><a href="#">Fitness Centre</a></li>
-										<li><a href="#">Library</a></li>
-										<li><a href="#">Luggage storage</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Petita</a></li>
-										<li><a href="#">Comforta</a></li>
-
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jl. Wahid Hasyim no. 127, Tanah
-								Abang,Jakarta, 10240.<br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$389</span><span
-										class="btn btn-primary">Book Now</span>
 								</div>
 
-								<div class="col-md-4">
 
+							</div>
+							<!-- end of col md 12-->
+							<div class="col-md-6" style="margin: 0 auto;">
 
-									<div class="booking-item-img-wrap">
-										<img src="img/indies.jpg" alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
+								<ul class="slimmenu" id="slimmenu">
+									<li class="active"><a href="#">Services</a>
+										<ul style="max-height: 300px; overflow: auto;">
+											<li><a href="#">24-hour front desk</a></li>
+											<li><a href="#">Express check-in/check-out</a></li>
+											<li><a href="#">Tour desk</a></li>
+											<li><a href="#">Concierge service</a></li>
+											<li><a href="#">Laundry</a></li>
+										</ul></li>
+
+									<li class="active"><a href="#">Facilities</a>
+										<ul style="max-height: 300px; overflow: auto;">
+											<li><a href="#">Free WiFi</a></li>
+											<li><a href="#">Fitness Centre</a></li>
+											<li><a href="#">Library</a></li>
+											<li><a href="#">Luggage storage</a></li>
+										</ul></li>
+
+									<li class="active"><a href="#">Rooms Available</a>
+										<ul style="max-height: 300px; overflow: auto;">
+											<li><a href="#">Petita</a></li>
+											<li><a href="#">Comforta</a></li>
+
+										</ul></li>
+								</ul>
+								<br>
+								<p class="booking-item-address">
+									<i class="fa fa-map-marker"></i> {{ hotel.hotelAddress }}<br>
+									<br> <a href="#">Show Map</a>
+								</p>
+
+							</div> <a class="booking-item">
+								<div class="row">
+
+									<div class="col-md-2">
+										<h5>From</h5>
+										<span class="booking-item-price">$389</span><span
+											class="btn btn-primary">Book Now</span>
 									</div>
 
+									<div class="col-md-4">
 
 
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
-
-					<!--Number 2-->
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">De Java Hotel</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24 Hour Room Service</a></li>
-										<li><a href="#">Child Care</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Express check-in/check-out</a></li>
-										<li><a href="#">Valet parking</a></li>
-
-
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-
-										<li><a href="#">Luggage storage</a></li>
-										<li><a href="#">Meeting facilities</a></li>
-										<li><a href="#">Safety deposit boxes</a></li>
-										<li><a href="#">Smoking area</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Studio 20</a></li>
-										<li><a href="#">Studio 25</a></li>
-										<li><a href="#">Studio 40</a></li>
-
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> Jl. Sukajadi No. 148-150, Jawa Barat, Indonesia.<br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$389</span><span
-										class="btn btn-primary">Book Now</span>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src="img/dejava.jpg" alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
+										<div class="booking-item-img-wrap">
+											<img src="img/indies.jpg" alt="Image Alternative text"
+												title="" />
+											<div class="booking-item-img-num">
+												<i class="fa fa-picture-o"></i>8
+											</div>
 										</div>
+
+
+
 									</div>
 
 								</div>
+								<!--end of div row-->
 
-							</div>
-							<!--end of div row-->
+						</a>
 
-					</a>
+						</li>
+					{% endfor %}
 
-					</li>
-
-					<!--Number 3-->
-					<li>
-
-						<div class="col-md-12">
-							<div class="header">
-								<br>
-								<h3 class="booking-item-title">Discovery Suites Manila</h3>
-							</div>
-
-
-						</div>
-						<!-- end of col md 8-->
-						<div class="col-md-6" style="margin: 0 auto;">
-							<ul class="slimmenu" id="slimmenu">
-								<li class="active"><a href="#">Services</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">24 Hour Room Service</a></li>
-										<li><a href="#">Child Care</a></li>
-										<li><a href="#">Concierge</a></li>
-										<li><a href="#">Dry Cleaning & Laundry</a></li>
-										<li><a href="#">Doctor on Call</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Facilities</a>
-									<ul style="max-height: 300px; overflow: auto;">
-
-										<li><a href="#">Business Center</a></li>
-										<li><a href="#">Spa</a></li>
-										<li><a href="#">Gym</a></li>
-										<li><a href="#">Safety Deposit Box</a></li>
-										<li><a href="#">Meeting/banquet facilities</a></li>
-										<li><a href="#">Wi-Fi</a></li>
-									</ul></li>
-
-								<li class="active"><a href="#">Rooms Available</a>
-									<ul style="max-height: 300px; overflow: auto;">
-										<li><a href="#">Deluxe</a></li>
-										<li><a href="#">Grand Deluxe</a></li>
-										<li><a href="#">Suite</a></li>
-										<li><a href="#">Grand Suite</a></li>
-										<li><a href="#">Presedential Suite</a></li>
-									</ul></li>
-							</ul>
-							<br>
-							<p class="booking-item-address">
-								<i class="fa fa-map-marker"></i> 25 ADB Avenue, Ortigas Center, Pasig, 1600 Metro Manila, Philippines.<br>
-								<br> <a href="#">Show Map</a>
-							</p>
-
-						</div> <a class="booking-item" href="#">
-							<div class="row">
-
-								<div class="col-md-2">
-									<h5>From</h5>
-									<span class="booking-item-price">$389</span><span
-										class="btn btn-primary">Book Now</span>
-								</div>
-
-								<div class="col-md-4">
-
-
-									<div class="booking-item-img-wrap">
-										<img src="img/discovery.jpg" alt="Image Alternative text"
-											title="" />
-										<div class="booking-item-img-num">
-											<i class="fa fa-picture-o"></i>8
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-							<!--end of div row-->
-
-					</a>
-
-					</li>
                 </ul>
 
 

@@ -7,6 +7,7 @@ import time
 from searchModule import queryBuilder as qb
 from .models import HotelInfo, RoomInfo, Merchant, Package, HotelAvailability, Traveller
 import models
+from .utils import generic_search
 
 ###################
 """ Dajngo libs"""
@@ -452,17 +453,26 @@ def createTravellerAddress(request):
 
 
 
-def showSearchresult(request):
-    webquery = request.GET['searchbar']
-    posarr, facilities = qb.associateSentiment(webquery=webquery)
-    print(posarr)
-    print(facilities)
-    area = posarr[3]
-    # fix out of index error
-    data = models.HotelInfo.objects.all()
-    hoteldata = [item for item in data if item[3] != none]
-    return render(request, 'searchresults_common.html', {'data': hoteldata})
+def search(request):
+    webquery = request.GET.get('searchbar')
+    
+    MODEL_MAP = {
+        HotelInfo: ['destination', 'area', 'hotelName', 'hotelAddress', 'hotelAmens', 'hotelServices', 'hotelDescription',]
+    }
+    objects = []
 
+    for model,fields in MODEL_MAP.iteritems():
+        objects+=generic_search(request, model, fields, webquery)
+    
+    context = {
+        'hotels': objects,
+        'count': len(objects),
+        'query': webquery
+    }
+    return render(request, 'searchresults_common.html', context)
+
+def showeResults(request):
+    pass
 
 def showBookingdetails(request):
     hotelName = request.GET.get("hotelName")
