@@ -37,13 +37,21 @@ def generic_search(request, model, fields, query):
     """
     """
 
-    query_string = query.strip()
+    query_string = query
 
     if not query_string:
         return model.objects.all()
 
     entry_query = build_query(query_string, fields)
 
-    found_entries = model.objects.filter(entry_query)
+    entries = model.objects.filter(entry_query)
 
-    return found_entries
+    for entry in entries:
+        amenities = entry.hotelAmens.split(',')
+        entry.hotelAmens = amenities
+        rooms = entry.hotelRoomTypes.split(',')
+        entry.hotelRoomTypes = rooms
+        services = entry.hotelServices.split(',')
+        entry.hotelServices = services
+
+    return entries

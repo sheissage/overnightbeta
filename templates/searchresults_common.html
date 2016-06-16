@@ -168,26 +168,23 @@
 								<ul class="slimmenu" id="slimmenu">
 									<li class="active"><a href="#">Services</a>
 										<ul style="max-height: 300px; overflow: auto;">
-											<li><a href="#">24-hour front desk</a></li>
-											<li><a href="#">Express check-in/check-out</a></li>
-											<li><a href="#">Tour desk</a></li>
-											<li><a href="#">Concierge service</a></li>
-											<li><a href="#">Laundry</a></li>
+											{% for service in hotel.hotelServices %}
+												<li><a href="#">{{ service }}</a></li>
+											{% endfor %}
 										</ul></li>
 
 									<li class="active"><a href="#">Facilities</a>
 										<ul style="max-height: 300px; overflow: auto;">
-											<li><a href="#">Free WiFi</a></li>
-											<li><a href="#">Fitness Centre</a></li>
-											<li><a href="#">Library</a></li>
-											<li><a href="#">Luggage storage</a></li>
+											{% for amenity in hotel.hotelAmens %}
+												<li><a href="#">{{ amenity }}</a></li>
+											{% endfor %}
 										</ul></li>
 
 									<li class="active"><a href="#">Rooms Available</a>
 										<ul style="max-height: 300px; overflow: auto;">
-											<li><a href="#">Petita</a></li>
-											<li><a href="#">Comforta</a></li>
-
+											{% for type in hotel.hotelRoomTypes %}
+												<li><a href="#">{{ type }}</a></li>
+											{% endfor %}
 										</ul></li>
 								</ul>
 								<br>
@@ -209,7 +206,7 @@
 
 
 										<div class="booking-item-img-wrap">
-											<img src="img/indies.jpg" alt="Image Alternative text"
+											<img src="{{ hotel.hotelPictures }}" alt="Image Alternative text"
 												title="" />
 											<div class="booking-item-img-num">
 												<i class="fa fa-picture-o"></i>8

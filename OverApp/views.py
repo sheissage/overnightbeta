@@ -463,7 +463,7 @@ def search(request):
 
     for model,fields in MODEL_MAP.iteritems():
         objects+=generic_search(request, model, fields, webquery)
-    
+        
     context = {
         'hotels': objects,
         'count': len(objects),
