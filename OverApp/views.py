@@ -118,13 +118,25 @@ def addAvailability(request):
         discount = params.get('discount')
         hotelTax = params.get('hoteltax')
 
+        price_type = params.get('roomPriceType')
+
         pattern = '%Y-%m-%d'
         start_epoch = int(time.mktime(time.strptime(start, pattern)))
         end_epoch = int(time.mktime(time.strptime(end, pattern)))
 
         merchant = Merchant.objects.get(user=request.user)
         hotel = HotelInfo.objects.get(merchant=merchant, pk=hotel_pk)
-        room = RoomInfo.objects.get(merchant=merchant, hotel=hotel, pk=room_pk)
+        room = RoomInfo.objects.get(hotel=hotel, pk=room_pk)
+
+        if price_type == 'default':
+            room.ratePerNight = float(price)
+            room.airportTransfer = float(airportTransport)
+            room.discountPercent = float(discount)
+            room.hotelTax = float(hotelTax)
+            room.serviceCharge = float(serviceCharge)
+            room.save()
+
+            return redirect('hotel-dashboard')
 
         #####################################################
         """ check if date availability is already present """
@@ -205,6 +217,7 @@ def createRoom(request):
         amenities = request.POST['amenities']
         services = request.POST['services']
         roomtypes = request.POST['roomtype']
+        currency = request.POST['currency']
 
         maxindex = int(getMax()) + 1
         
@@ -225,7 +238,8 @@ def createRoom(request):
             hotelAmens=amenities,
             hotelServices=services,
             hotelRoomTypes=roomtypes,
-            merchant=merchant
+            merchant=merchant,
+            currency=currency
         )
 
         hotel.save()
@@ -457,7 +471,7 @@ def search(request):
     webquery = request.GET.get('searchbar')
     
     MODEL_MAP = {
-        HotelInfo: ['destination', 'area', 'hotelName', 'hotelAddress', 'hotelAmens', 'hotelServices', 'hotelDescription',]
+        HotelInfo: ['destination', 'area', 'hotelName', 'hotelAddress', 'hotelAmens', 'hotelServices', 'hotelDescription', 'hotelRoomTypes',]
     }
     objects = []
 

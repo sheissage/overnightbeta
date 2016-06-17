@@ -1,6 +1,7 @@
 import re
 
-from django.db.models import Q
+from django.db.models import Q, Min
+from OverApp.models import RoomInfo, HotelAvailability
 
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
@@ -33,6 +34,20 @@ def build_query(query_string, search_fields):
             query = or_query
     return query
 
+def get_lowest_price(pk):
+    # include dates in the future
+    
+    default_price = RoomInfo.objects.filter(hotel_id=pk).aggregate(lowest=Min('ratePerNight'))
+    season_price = HotelAvailability.objects.filter(hotel_id=pk).aggregate(lowest=Min('ratePerNight'))
+
+    if not season_price.get('lowest'):
+        return default_price.get('lowest')
+    if default_price.get('lowest') < season_price.get('lowest'):
+        return default_price.get('lowest')
+    else:
+        return season_price.get('lowest')
+
+
 def generic_search(request, model, fields, query):
     """
     """
@@ -40,18 +55,19 @@ def generic_search(request, model, fields, query):
     query_string = query
 
     if not query_string:
-        return model.objects.all()
-
-    entry_query = build_query(query_string, fields)
-
-    entries = model.objects.filter(entry_query)
+        entries = model.objects.all()
+    else:
+        entry_query = build_query(query_string, fields)
+        entries = model.objects.filter(entry_query)
 
     for entry in entries:
+        entry.lowest = get_lowest_price(entry.pk)
         amenities = entry.hotelAmens.split(',')
         entry.hotelAmens = amenities
         rooms = entry.hotelRoomTypes.split(',')
         entry.hotelRoomTypes = rooms
         services = entry.hotelServices.split(',')
         entry.hotelServices = services
+
 
     return entries

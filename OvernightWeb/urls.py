@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from OverApp import views
-from OvernightWeb import settings
+from django.conf import settings
+
+from django.conf.urls.static import static
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',views.landing_page),
@@ -51,8 +54,6 @@ urlpatterns = [
     url(r'^signupFinish/', views.createTravellerAddress),
     url(r'^signup/', views.signupFirsttoSecond),
     url(r'^dashboard/', views.hotelDashboardRedirect, name='hotel-dashboard'),
-    url(r'^media/(?P<path>.*)$',
-        'django.views.static.serve',
-        {'document_root': settings.MEDIA_ROOT,}),
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

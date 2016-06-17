@@ -58,7 +58,7 @@
 					<div class="row">
 						<div class="col-md-3">
 							<a class="logo" href="landingpage.html"> <img
-								class="origin square" src="img/overnightlogo1.png"
+								class="origin square" src="{% static 'img/overnightlogo1.png'%}"
 								style="width: 40px;" alt="Image Alternative text"
 								title="Image Title" />
 							</a>
@@ -69,14 +69,15 @@
 								<ul class="top-user-area-list list list-horizontal list-border">
 
 									<li class="top-user-area-avatar"><a
-										href="user-profile.html"> <img class="origin round"
-											src="img/40x40.png" alt="Image Alternative text"
-											title="AMaze" />Hi, John
-									</a></li>
-
-									<li><a href="#">Sign In</a></li>
+										href="/showUserProfile/" onclick="submit"> <img class="origin round"
+											src= "{% static 'img/40x40.png'%}" alt="Image Alternative text"
+											title="AMaze" />Hi, {{request.user.first_name}}
+					</a></li>
+									<li><a href="/logoutUser/">Logout</a></li>
+									<!--<li><a href="#">Sign In</a></li>
 									</li>
-									<li><a href="#">Sign Up</a></li>
+									<li><a href="#">Sign Up</a></li>-->
+
 							</div>
 						</div>
 					</div>
@@ -198,7 +199,7 @@
 
 									<div class="col-md-2">
 										<h5>From</h5>
-										<span class="booking-item-price">$389</span><span
+										<span class="booking-item-price">{{ hotel.currency }}{{ hotel.lowest }}</span><span
 											class="btn btn-primary">Book Now</span>
 									</div>
 
@@ -206,8 +207,7 @@
 
 
 										<div class="booking-item-img-wrap">
-											<img src="{{ hotel.hotelPictures }}" alt="Image Alternative text"
-												title="" />
+											<img src="{{ MEDIA_URL }}{{ hotel.hotelPictures }}" alt="My image"/>
 											<div class="booking-item-img-num">
 												<i class="fa fa-picture-o"></i>8
 											</div>

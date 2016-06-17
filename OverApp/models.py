@@ -42,6 +42,7 @@ class HotelInfo(models.Model):
     hotelPictures = models.ImageField(upload_to="hotelPics/",default="hotelPics/avatar.jpg")  # Field name made lowercase.(HTML)
     hotelDescription = models.CharField(max_length=5120, blank=True, null=True)# Field name made lowercase.
     # ownerId = models.TextField(db_column='ownerId',default='Overnightasia')
+    currency = models.CharField(max_length=3, default='USD')
     merchant = models.ForeignKey('OverApp.Merchant')
 
     class Meta:
