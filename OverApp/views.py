@@ -150,7 +150,7 @@ def addAvailability(request):
         for availability in availabilities:
             date_range = range(availability.start, availability.end)
             if start_epoch in date_range or end_epoch in date_range:
-                return HttpResponse('Invalid - Overlapping dates')
+                return HttpResponse('Invalid - Overlapping Seasonal Rates')
 
 
         availability = HotelAvailability(
