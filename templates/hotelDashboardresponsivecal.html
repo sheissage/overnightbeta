@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="en">
+{% load staticfiles %}
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+<title>Overnight.asia | Hotel/Property Dashboard</title>
+	<meta charset='utf-8' />
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta name="keywords" content="Template, html, premium, themeforest" />
+	<meta name="description" content="Traveler - Premium template for travel companies">
+	<meta name="author" content="Ahshida" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Respomsive slider -->
+    <link href="../css/responsive-calendar.css" rel="stylesheet">
+
+	<!-- GOOGLE FONTS -->
+	<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css">
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+	<link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+
+<style>
+* {
+	box-sizing: border-box;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- FACEBOOK WIDGET -->
+	<div id="fb-root"></div>
+	<script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+	<!-- /FACEBOOK WIDGET -->
+	<div class="global-wrap">
+		<header id="main-header">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<a class="logo" href="landingpage.html"> <img
+								class="origin square" src="{% static 'img/overnightlogo1.png'%}"
+								style="width: 40px;" alt="Image Alternative text"
+								title="Image Title" />
+							</a>
+						</div>
+						<div class="col-md-3 col-md-offset-2"></div>
+						<div class="col-md-4">
+							<div class="top-user-area clearfix">
+								<ul class="top-user-area-list list list-horizontal list-border">
+
+									<li class="top-user-area-avatar"><a
+										href="/showUserProfile/" onclick="submit"> <img class="origin round"
+											src= "{% static 'img/40x40.png'%}" alt="Image Alternative text"
+											title="AMaze" />Hi, {{request.user.first_name}}
+					</a></li>
+									<li><a href="/logoutUser/">Logout</a></li>
+									<!--<li><a href="#">Sign In</a></li>
+									</li>
+									<li><a href="#">Sign Up</a></li>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+
+
+
+		<div class="booking-title" id="search-dialog">
+
+
+
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+		</div>
+
+
+	</div>
+
+
+	<div class="container">
+		<h1 class="page-title">Property Dashboard</h1>
+
+	<div class="container">
+	<div class="row">
+		<aside class="form-column">
+			<div class="information-column">
+	</div>
+
+<ul class="update-property-information">
+	<br>To create Rooms click <a href="/manageContent/"> Create Hotel</a>
+	<br>To create Rooms click <a href="/managePackage/"> Create Package</a>
+
+	<br>To update property and rooms information fill the form below.<br><br>
+
+		<form method="POST" action="/addAvailability/">
+		{% csrf_token%}
+	</div>
+</div>
+
+		<div class="input-daterange" data-date-format="yyyy-mm-dd">
+				<div class="row">
+					<!-- left column -->
+					<div class="col-md-4">
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>From
+								</label> <input class="form-control" name="start" type="date" />
+								<i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+
+		<div class="input-daterange" data-date-format="yyyy-mm-dd">
+
+						<div class="form-group form-group-icon-left">
+							<i class="fa fa-calendar input-icon input-icon-hightlight"></i> <label>To
+								</label> <input class="form-control" name="start" type="date" />
+								<i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+
+								<br>
+							</div>
+								<br>
+
+								<select id="hotel" name="hotel" class="form-control" onchange="getRooms(this.value)">
+
+									{% for hotel in hotels%}
+										<option value="{{hotel.hotelId}}">{{hotel.hotelName}}</option>
+									{% endfor %}
+								</select>
+								</br>
+								<select id="roomType" name="roomType" class="form-control">
+								</select>
+								</br>
+								<br><input class="form-control" name="price" type="number" step="0" placeholder ="Room Rate"/>
+
+							<br>	<input class="form-control" name="airporttransport" type="number" step="0" placeholder ="Airport Transfer Cost"/>
+							<br>	<input class="form-control" name="discount" type="number" step="0" placeholder ="Discount Percentage"/>
+							<br>	<input class="form-control" name="hoteltax" type="number" step="0" placeholder ="Hotel Tax"/>
+							<br>	<input class="form-control" name="servicecharge" type="number" step="0" placeholder ="Service Charge"/>
+
+					</div>
+
+			<br> <button class="btn btn-primary btn-lg" type="submit">Update</button>
+		</div>
+	</div>
+		<div class="col-md-8">
+			<div class="row"><br>
+				<div class="col-md-4">
+			<select id="hotel" name="hotel" class="form-control" onchange="getRooms(this.value)">
+					{% for hotel in hotels%}
+								<option value="{{hotel.hotelId}}">{{hotel.hotelName}}</option>
+								{% endfor %}
+								</select>
+							</br></div>
+							<div class="col-md-4">
+								<select id="{{room.roomType}}" name="roomType" class="form-control">
+								</select>
+							</br></div>
+							<div class="col-md-4">
+								<input class="form-control" name="roomnumber" type="number" placeholder ="Type Room Number"/>
+
+								<br></div>
+							</div><br>
+							
+							
+							<p style="font-size:1.5em;font-weight:bold;">Check Availability</p>
+
+	<!-- Responsive calendar - START -->
+	<div class="responsive-calendar">
+  	<div class="controls">
+      <a class="pull-left" data-go="prev"><div class="btn"><i class="icon-chevron-left"></i></div></a>
+      <h4><span data-head-year></span> <span data-head-month></span></h4>
+      <a class="pull-right" data-go="next"><div class="btn"><i class="icon-chevron-right"></i></div></a>
+  	</div><hr/>
+  	<div class="day-headers">
+  		<div class="day header">Mon</div>
+     	<div class="day header">Tue</div>
+    	<div class="day header">Wed</div>
+    	<div class="day header">Thu</div>
+    	<div class="day header">Fri</div>
+    	<div class="day header">Sat</div>
+    	<div class="day header">Sun</div>
+  	</div>
+  	<div class="days" data-group="days">
+    <!-- the place where days will be generated -->
+  	</div>
+	</div>
+	<!-- Responsive calendar - END -->
+	
+<script>
+	$( document ).ready( function() {
+  	$('.responsive-calendar').responsiveCalendar();
+	});
+</script>
+						
+		
+	</form>
+	</div>
+</div>
+
+		<br>
+		<br>
+		<br>
+
+	<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8"></div>
+					<div class="col-md-3" style="padding-bottom: 10px; text-align: right;">
+						<a href="https://www.facebook.com/overnightasia/"><i class="fa fa-facebook" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+						<a href="https://www.instagram.com/overnightasia/"><i class="fa fa-instagram" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+						<a href="https://twitter.com/overnightasia"><i class="fa fa-twitter" aria-hidden="true" style="color: #ff8400; font-size: 19px;"></i> &nbsp;</a>
+						<a href="https://www.linkedin.com/company/overnight-asia"><i class="fa fa-linkedin" aria-hidden="true" style="color: #ff8400; font-size: 20px;"></i> &nbsp;</a>
+						<a href="http://www.overnight.asia/mailto:ahshida@overnight.asia"><i class="fa fa-envelope-o" aria-hidden="true" style="color: #ff8400; font-size: 18px;"></i> &nbsp;</a>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="container">
+				<div class="row" style="font-size: 14px;">
+					<div class="col-md-1"></div>
+					<div class="col-md-3" style="color: #ff8400;">Overnight.asia All Rights Reserved 2016</div>
+					<div class="col-md-3"></div>
+					<div class="col-md-4" style="text-align: right;"><a style="color: #ff8400;" href="http://www.overnight.asia/about.html">About |</a>
+						<a style="color: #ff8400;" href="http://www.overnight.asia/privacy-policy.html">Privacy Policy |</a>
+						 <a style="color: #ff8400;" href="http://www.overnight.asia/terms-of-website.html">Terms of Website </a> </div>
+					<div class="col-md-1"></div>
+				</div><br><br><br>
+			</div>
+	</div>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script  src="{% static 'js/jquery.js' %}" ></script>
+	<script src= "{% static 'js/bootstrap.js' %}"></script>
+	<script src= "{% static 'js/slimmenu.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-datepicker.js' %}"></script>
+	<script src= "{% static 'js/bootstrap-timepicker.js' %}"></script>
+	<script src= "{% static 'js/nicescroll.js' %}"></script>
+	<script src= "{% static 'js/dropit.js' %}"></script>
+	<script src= "{% static 'js/ionrangeslider.js' %}"></script>
+	<script src= "{% static 'js/icheck.js' %}"></script>
+	<script src= "{% static 'js/fotorama.js' %}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" ></script>
+	<script src= "{% static 'js/typeahead.js' %}"></script>
+	<script src= "{% static 'js/card-payment.js' %}"></script>
+	<script src= "{% static 'js/magnific.js' %}"></script>
+	<script src= "{% static 'js/owl-carousel.js' %}"></script>
+	<script src= "{% static 'js/fitvids.js' %}"></script>
+	<script src= "{% static 'js/tweet.js' %}"></script>
+	<script src= "{% static 'js/countdown.js' %}"></script>
+	<script src="{% static 'js/gridrotator.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="{% static 'js/modernizr.js' %}"></script>
+	<script src="{% static js/responsive-calendar.js %}"></script>
+
+</body>
+
+<script>
+$( document ).ready(function() {
+    var hotel = document.getElementById("hotel");
+	var selected = hotel.options[hotel.selectedIndex].value;
+	getRooms(selected);
+});
+
+function removeOptions(selectbox) {
+    var i;
+    for(i=selectbox.options.length-1;i>=0;i--) {
+        selectbox.remove(i);
+   	}
+}
+
+function getRooms(id) {
+	$.ajax({
+		url: '/getRooms/',
+		type: 'GET',
+		data: {
+			'hotelId': id
+		},
+		success: function(data) {
+			var roomType = document.getElementById("roomType");
+			removeOptions(roomType);
+
+			for (entry in data) {
+				if (entry < data.length) {
+					console.log(data[entry].roomType);
+					var option = document.createElement("option");
+					option.text = data[entry].roomType;
+					option.value = data[entry].pk;
+					roomType.add(option, roomType[entry]);
+
+				}
+			}
+
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			console.log(errorThrown);
+			console.log(textStatus);
+
+        }
+	});
+}
+
+$('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+        || location.hostname == this.hostname) {
+
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+           if (target.length) {
+             $('html,body').animate({
+                 scrollTop: target.offset().top
+            }, 1000);
+            return false;
+        }
+    }
+});
+</script>
+</html>
