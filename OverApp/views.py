@@ -127,7 +127,7 @@ def addAvailability(request):
         merchant = Merchant.objects.get(user=request.user)
         hotel = HotelInfo.objects.get(merchant=merchant, pk=hotel_pk)
         room = RoomInfo.objects.get(hotel=hotel, pk=room_pk)
-
+        print price_type
         if price_type == 'default':
             room.ratePerNight = float(price)
             room.airportTransfer = float(airportTransport)
@@ -318,18 +318,59 @@ def getRoomTypes(request):
     if request.method == 'GET' and request.is_ajax:
         hotelId = request.GET.get('hotelId', '')
         hotel = HotelInfo.objects.get(hotelId=hotelId)
-        roomTypes = RoomInfo.objects.filter(hotel=hotel).values('pk', 'roomType')
+        roomTypes = RoomInfo.objects.filter(hotel=hotel)
         result = []
 
         for roomType in roomTypes:
             cache = {}
-            cache['pk'] = roomType.get('pk')
-            cache['roomType'] = roomType.get('roomType')
+            cache['pk'] = roomType.pk
+            cache['roomType'] = roomType.roomType
+            
             result.append(cache)
-
-        print result
         return JsonResponse(result, safe=False)
 
+def getRoomInfo(request):
+    if request.method == 'GET' and request.is_ajax:
+        merchant = Merchant.objects.get(user=request.user)
+        roomId = request.GET.get('roomId', '')
+
+        room = RoomInfo.objects.get(merchant=merchant, pk=roomId)
+
+        # result = []
+        cache = {}
+        cache['ratePerNight'] = room.ratePerNight
+        cache['airportTransfer'] = room.airportTransfer
+        cache['discountPercent'] = room.discountPercent
+        cache['hotelTax'] = room.hotelTax
+        cache['serviceCharge'] = room.serviceCharge
+        # result.append(cache)
+        return JsonResponse(cache, safe=False)
+
+def getRoomAvailability(request):
+    if request.method == 'GET' and request.is_ajax:
+        merchant = Merchant.objects.get(user=request.user)
+        roomId = request.GET.get('roomId', '')
+        start =  request.GET.get('start', '')
+        end =  request.GET.get('end', '')
+
+        room = RoomInfo.objects.get(merchant=merchant, pk=roomId)
+
+        dates = HotelAvailability.objects.filter(room=room)\
+            .filter(Q(start__range=(start, end)) | Q(end__range=(start, end)))
+
+        result = []
+        for date in dates:
+            cache = {}
+            start = int(time.strftime('%d', time.localtime(date.start)))
+            end = int(time.strftime('%d', time.localtime(date.end)))
+            if start > end:
+                end = 31
+
+            cache['start'] = start
+            cache['end'] = end
+            cache['rate'] = date.ratePerNight
+            result.append(cache)
+        return JsonResponse(result, safe=False)
 
 def logonMerchant(request):
     request.context = RequestContext(request)

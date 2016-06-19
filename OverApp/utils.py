@@ -36,13 +36,14 @@ def build_query(query_string, search_fields):
 
 def get_lowest_price(pk):
     # include dates in the future
-    
+
     default_price = RoomInfo.objects.filter(hotel_id=pk).aggregate(lowest=Min('ratePerNight'))
     season_price = HotelAvailability.objects.filter(hotel_id=pk).aggregate(lowest=Min('ratePerNight'))
-
+    print default_price
+    print season_price
     if not season_price.get('lowest'):
         return default_price.get('lowest')
-    if default_price.get('lowest') < season_price.get('lowest'):
+    if default_price.get('lowest') < season_price.get('lowest') and default_price.get('lowest') != 0:
         return default_price.get('lowest')
     else:
         return season_price.get('lowest')

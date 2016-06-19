@@ -147,3 +147,28 @@ class Traveller(models.Model):
         managed = True
         verbose_name_plural = 'Traveller'
 
+class BookingInfo(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    start = models.IntegerField()
+    end = models.IntegerField()
+    days = models.IntegerField()
+    checkin = models.IntegerField()
+    checkout = models.IntegerField()
+    totalRate = models.IntegerField()
+    is_promo = models.BooleanField(default=False)
+    is_package = models.BooleanField(default=False)
+    discountPercent = models.FloatField(default=0)
+    hotelTax = models.FloatField(default=0)
+    serviceCharge = models.FloatField(default=0)
+    airportTransfer = models.FloatField(default=0)
+    hotel = models.ForeignKey('OverApp.HotelInfo')
+    merchant = models.ForeignKey('OverApp.Traveller')
+    room = models.ForeignKey('OverApp.RoomInfo')
+    promo = models.ForeignKey('OverApp.HotelAvailability', blank=True, null=True)
+    package = models.ForeignKey('OverApp.Package', blank=True, null=True)
+
+    class Meta:
+        managed = True
+        verbose_name_plural = 'BookingInfo'
+
