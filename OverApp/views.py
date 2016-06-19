@@ -329,6 +329,123 @@ def getRoomTypes(request):
             result.append(cache)
         return JsonResponse(result, safe=False)
 
+def getBookingOffers(request):
+    if request.method == 'GET':
+        hotelId = request.GET.get('hotelId', '')
+        start = request.GET.get('start', '')
+        end = request.GET.get('end', '')
+
+        merchant = Merchant.objects.get(user=request.user)
+        hotel = HotelInfo.objects.get(hotelId=hotelId)
+
+        response = {}
+
+        packages = Package.objects.filter(hotel=hotel, merchant=merchant, is_deleted=False, is_active=True)
+        dates = HotelAvailability.objects.filter(hotel=hotel)\
+            .filter(Q(start__range=(start, end)) | Q(end__range=(start, end)))
+        rooms = RoomInfo.objects.filter(hotel=hotel)
+
+        #######################
+        """ get packages """
+        #######################
+
+        result = []
+        for package in packages:
+            cache = {}
+            cache['name'] = package.packageName
+            cache['description'] = package.packageDesc
+            cache['room'] = package.roomType
+            cache['service'] = package.serviceList
+            cache['discount'] = package.discountPercent
+            cache['tax'] = package.hotelTax
+            cache['servicecharge'] = package.serviceCharge
+            cache['airporttransfer'] = package.airportTransfer
+            cache['pk'] = package.pk
+            result.append(cache)
+
+        response['packages'] = result
+
+        #######################
+        """    get promos   """
+        #######################
+
+        result = []
+        for date in dates:
+            start = int(time.strftime('%b %d %Y', time.localtime(date.start)))
+            end = int(time.strftime('%b %d %Y', time.localtime(date.end)))
+            cache['service'] = date.serviceList
+            cache['discount'] = date.discountPercent
+            cache['tax'] = date.hotelTax
+            cache['servicecharge'] = date.serviceCharge
+            cache['airporttransfer'] = date.airportTransfer
+            cache['room'] = date.room.roomType
+            cache['pk'] = date.pk
+            result.append(cache)
+
+        response['promos'] = result
+
+        #######################
+        """    get defaults   """
+        #######################
+
+        result = []
+        for room in rooms:
+            cache = {}
+            cache['room'] = room.roomType
+            cache['price'] = room.ratePerNight
+            cache['service'] = room.serviceList
+            cache['discount'] = room.discountPercent
+            cache['tax'] = room.hotelTax
+            cache['servicecharge'] = room.serviceCharge
+            cache['airporttransfer'] = room.airportTransfer
+            cache['room'] = date.pk
+            
+            result.append(cache)
+
+        response['defaults'] = result
+
+        return JsonResponse(result, safe=False)
+
+def getBookingDetails(request):
+    if request.method == 'POST':
+        merchant = Merchant.objects.get(user=request.user)
+        booking_type = request.POST['type']
+        pk = request.POST['pk']
+
+        cache = {}
+
+        if booking_type == 'package':
+            package = Package.objects.get(merchant=merchant, pk=pk)
+
+            cache['name'] = package.packageName
+            cache['description'] = package.packageDesc
+            cache['room'] = package.roomType
+            cache['service'] = package.serviceList
+            cache['discount'] = package.discountPercent
+            cache['tax'] = package.hotelTax
+            cache['servicecharge'] = package.serviceCharge
+            cache['airporttransfer'] = package.airportTransfer
+        elif booking_type == 'promo':
+            date = HotelAvailability.objects.get(merchant=merchant, pk=pk)
+
+            cache['service'] = date.serviceList
+            cache['discount'] = date.discountPercent
+            cache['tax'] = date.hotelTax
+            cache['servicecharge'] = date.serviceCharge
+            cache['airporttransfer'] = date.airportTransfer
+            cache['room'] = date.room.roomType
+            cache['pk'] = date.pk
+        else:
+            room = RoomInfo.objects.filter(hotel=hotel, pk=pk)
+            cache['room'] = room.roomType
+            cache['price'] = room.ratePerNight
+            cache['service'] = room.serviceList
+            cache['discount'] = room.discountPercent
+            cache['tax'] = room.hotelTax
+            cache['servicecharge'] = room.serviceCharge
+            cache['airporttransfer'] = room.airportTransfer
+            cache['room'] = date.pk
+
 def getRoomInfo(request):
     if request.method == 'GET' and request.is_ajax:
         merchant = Merchant.objects.get(user=request.user)

@@ -93,6 +93,8 @@ class Package(models.Model):
     discountPercent = models.FloatField(default=0)
     hotelTax = models.FloatField(default=0)
     serviceCharge = models.FloatField(default=0)
+    is_deleted = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     hotel = models.ForeignKey('OverApp.HotelInfo')
     merchant = models.ForeignKey('OverApp.Merchant')
     room = models.ForeignKey('OverApp.RoomInfo')

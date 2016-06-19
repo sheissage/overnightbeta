@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'^getRooms/', views.getRoomTypes),
     url(r'^getRoomInfo/', views.getRoomInfo),
     url(r'^getRoomAvailability/', views.getRoomAvailability),
+    url(r'^getBookingOffers/', views.getBookingOffers),
     url(r'^signupPage2/', views.signupFirsttoSecond),
     url(r'^signupPage3/', views.createTaveller),
     url(r'^signupFinish/', views.createTravellerAddress),
