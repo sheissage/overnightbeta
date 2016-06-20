@@ -332,79 +332,42 @@ def getRoomTypes(request):
 def getBookingOffers(request):
     if request.method == 'GET':
         hotelId = request.GET.get('hotelId', '')
-        start = request.GET.get('start', '')
-        end = request.GET.get('end', '')
+        start = int(time.mktime(time.gmtime()))
 
         merchant = Merchant.objects.get(user=request.user)
         hotel = HotelInfo.objects.get(hotelId=hotelId)
 
         response = {}
 
-        packages = Package.objects.filter(hotel=hotel, merchant=merchant, is_deleted=False, is_active=True)
-        dates = HotelAvailability.objects.filter(hotel=hotel)\
-            .filter(Q(start__range=(start, end)) | Q(end__range=(start, end)))
-        rooms = RoomInfo.objects.filter(hotel=hotel)
+        packages = Package.objects.filter(hotel=hotel, merchant=merchant, is_deleted=False, is_active=True).values('packageName', 'pk')
+        dates = HotelAvailability.objects.filter(hotel=hotel, start__gte=start).values('start', 'end', 'pk')
+        rooms = RoomInfo.objects.filter(hotel=hotel).values('pk', 'roomType')
 
-        #######################
-        """ get packages """
-        #######################
-
-        result = []
-        for package in packages:
-            cache = {}
-            cache['name'] = package.packageName
-            cache['description'] = package.packageDesc
-            cache['room'] = package.roomType
-            cache['service'] = package.serviceList
-            cache['discount'] = package.discountPercent
-            cache['tax'] = package.hotelTax
-            cache['servicecharge'] = package.serviceCharge
-            cache['airporttransfer'] = package.airportTransfer
-            cache['pk'] = package.pk
-            result.append(cache)
-
-        response['packages'] = result
-
-        #######################
-        """    get promos   """
-        #######################
-
-        result = []
         for date in dates:
-            start = int(time.strftime('%b %d %Y', time.localtime(date.start)))
-            end = int(time.strftime('%b %d %Y', time.localtime(date.end)))
-            cache['service'] = date.serviceList
-            cache['discount'] = date.discountPercent
-            cache['tax'] = date.hotelTax
-            cache['servicecharge'] = date.serviceCharge
-            cache['airporttransfer'] = date.airportTransfer
-            cache['room'] = date.room.roomType
-            cache['pk'] = date.pk
-            result.append(cache)
+            date['str_start'] = time.strftime('%b %d %Y', time.localtime(date.get('start')))
+            date['str_end'] = time.strftime('%b %d %Y', time.localtime(date.get('end')))
 
-        response['promos'] = result
+        context = {
+            'defaults': rooms,
+            'packages': packages,
+            'promos': dates
+        }
+        return render(request, 'viewDetails.html', context)
 
-        #######################
-        """    get defaults   """
-        #######################
 
-        result = []
-        for room in rooms:
-            cache = {}
-            cache['room'] = room.roomType
-            cache['price'] = room.ratePerNight
-            cache['service'] = room.serviceList
-            cache['discount'] = room.discountPercent
-            cache['tax'] = room.hotelTax
-            cache['servicecharge'] = room.serviceCharge
-            cache['airporttransfer'] = room.airportTransfer
-            cache['room'] = date.pk
-            
-            result.append(cache)
+def getBookingOfferDetails(request):
+    if request.method == 'GET':
+        pk = request.GET.get('pk', '')
+        start = request.GET.get('start', '')
+        end = request.GET.get('end', '')
+        offer_type = request.GET.get('type', '')
 
-        response['defaults'] = result
+        merchant = Merchant.objects.get(user=request.user)
+        hotel = HotelInfo.objects.get(hotelId=hotelId)
 
-        return JsonResponse(result, safe=False)
+        response = {}
+
+        return JsonResponse(response)
 
 def getBookingDetails(request):
     if request.method == 'POST':

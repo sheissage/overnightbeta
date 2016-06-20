@@ -199,8 +199,11 @@
 
 									<div class="col-md-2">
 										<h5>From</h5>
-										<span class="booking-item-price">{{ hotel.currency }}{{ hotel.lowest }}</span><span
-											class="btn btn-primary">Book Now</span>
+										<span class="booking-item-price">{{ hotel.currency }}{{ hotel.lowest }}</span>
+										<form name="view-hotel" method="GET" action="/getBookingOffers/">
+											<button class="btn btn-primary" type="submit">View Detai</button>
+											<input type="hidden" name="hotelId" value="{{ hotel.pk }}">
+										</form>
 									</div>
 
 									<div class="col-md-4">
