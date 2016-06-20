@@ -334,12 +334,15 @@ def getBookingOffers(request):
         hotelId = request.GET.get('hotelId', '')
         start = int(time.mktime(time.gmtime()))
 
-        merchant = Merchant.objects.get(user=request.user)
+        try:
+            merchant = Merchant.objects.get(user=request.user)
+        except:
+            pass
         hotel = HotelInfo.objects.get(hotelId=hotelId)
 
         response = {}
 
-        packages = Package.objects.filter(hotel=hotel, merchant=merchant, is_deleted=False, is_active=True).values('packageName', 'pk')
+        packages = Package.objects.filter(hotel=hotel, is_deleted=False, is_active=True).values('packageName', 'pk')
         dates = HotelAvailability.objects.filter(hotel=hotel, start__gte=start).values('start', 'end', 'pk')
         rooms = RoomInfo.objects.filter(hotel=hotel).values('pk', 'roomType')
 
@@ -365,20 +368,32 @@ def getBookingOfferDetails(request):
         merchant = Merchant.objects.get(user=request.user)
         hotel = HotelInfo.objects.get(hotelId=hotelId)
 
+        if offer_type == 'package':
+            package = Package.objects.get(merchant=merchant, pk=pk)
+            response = {
+                'name': package.packageName,
+                'description': package.packageDesc,
+                'allIn': package.price
+            }
+        elif offer_type == 'promo':
+            promo = ""
         response = {}
 
         return JsonResponse(response)
 
 def getBookingDetails(request):
     if request.method == 'POST':
-        merchant = Merchant.objects.get(user=request.user)
+        try:
+            merchant = Merchant.objects.get(user=request.user)
+        except:
+            pass
         booking_type = request.POST['type']
         pk = request.POST['pk']
 
         cache = {}
 
         if booking_type == 'package':
-            package = Package.objects.get(merchant=merchant, pk=pk)
+            package = Package.objects.get(pk=pk)
 
             cache['name'] = package.packageName
             cache['description'] = package.packageDesc
@@ -389,7 +404,7 @@ def getBookingDetails(request):
             cache['servicecharge'] = package.serviceCharge
             cache['airporttransfer'] = package.airportTransfer
         elif booking_type == 'promo':
-            date = HotelAvailability.objects.get(merchant=merchant, pk=pk)
+            date = HotelAvailability.objects.get(pk=pk)
 
             cache['service'] = date.serviceList
             cache['discount'] = date.discountPercent
