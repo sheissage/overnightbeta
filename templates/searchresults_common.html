@@ -22,7 +22,7 @@
 	rel='stylesheet' type='text/css'>
 <!-- /GOOGLE FONTS -->
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >
-<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
 <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="{% static 'css/mystyles.css' %}">
@@ -210,7 +210,7 @@
 
 
 										<div class="booking-item-img-wrap">
-											<img src="{{ MEDIA_URL }}{{ hotel.hotelPictures }}" alt="My image"/>
+											<img src="{{ hotel.hotelPictures.url }}" alt="My image"/>
 											<div class="booking-item-img-num">
 												<i class="fa fa-picture-o"></i>8
 											</div>

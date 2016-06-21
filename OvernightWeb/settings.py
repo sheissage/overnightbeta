@@ -50,6 +50,7 @@ STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # using whitenoise for static file storage
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
@@ -67,7 +68,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'OverApp'
+    'OverApp',
+    'storages'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -158,6 +160,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+#S3 Config
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAJJJFV4NHCLDZWHYQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'overnightasia'
 
 
 #email credentials settings
